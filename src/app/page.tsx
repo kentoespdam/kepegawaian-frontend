@@ -7,5 +7,5 @@ export default function Home() {
     <div className="ml-2">
       <ThemeButton />
     </div>
-  )
+  );
 }

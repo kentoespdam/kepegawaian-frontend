@@ -72,10 +72,31 @@ const config = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				"move-forever": {
+					from: { transform: "translate3d(-90px,0,0)" },
+					to: { transform: "translate3d(85px,0,0)" },
+				},
+				"cubic-bezier": {},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+				parallax: "move-forever 25s ease-in-out infinite",
+			},
+			transitionTimingFunction: {
+				parallax: "cubic-bezier(.55,.5,.45,.5)",
+			},
+			transitionDelay: {
+				"min-2s": "-2s",
+				"min-3s": "-3s",
+				"min-4s": "-4s",
+				"min-5s": "-5s",
+			},
+			transitionDuration: {
+				"7s": "7s",
+				"10s": "10s",
+				"13s": "13s",
+				"20s": "20s",
 			},
 			fontFamily: {
 				sans: ["var(--font-sans)", ...fontFamily.sans],

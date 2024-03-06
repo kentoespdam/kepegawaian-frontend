@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google"
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@utils/index"
-import NextThemeProv from "@provider/NextThemeProv"
+import { cn } from "@utils/index";
+import NextThemeProv from "@provider/NextThemeProv";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,15 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        fontSans.variable
-      )}>
-        <NextThemeProv
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+        )}
+      >
+        <NextThemeProv attribute="class" defaultTheme="system" enableSystem>
           {children}
         </NextThemeProv>
       </body>
