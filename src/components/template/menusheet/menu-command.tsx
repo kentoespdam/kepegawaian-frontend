@@ -23,7 +23,7 @@ const MenulistBuilder = (props: MenuListBuilderProps) => {
     </CommandGroup>
   ) : (
     <Link href={props.menu.path} className="cursor pointer">
-      <CommandItem className="cursor-pointer gap-2 ml-4">
+      <CommandItem className="cursor-pointer gap-2 pl-4">
         {props.menu.icon}
         {props.menu.name}
       </CommandItem>

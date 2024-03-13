@@ -7,32 +7,26 @@ import LoadingProfile from "../profile/loading-profile";
 
 const TopBarComponent = () => {
     return (
-        <div className="shadow-md">
-            <div className="max-w-7x1 mx-auto mr-4 px-4 py-2 sm:px-4 lg:px-4">
-                <div className="flex h-12 items-center justify-between">
-                    <div className="flex items-center justify-between gap-4">
-                        <Avatar className="h-10 w-12">
-                            <Image
-                                alt="Logo Perumdam Tirta Satria"
-                                src="/images/logo_pdam_40x40.png"
-                                fill
-                                loading="lazy"
-                                className="dark: bg-white"
-                            />
-                            <AvatarFallback>Logo PDAM</AvatarFallback>
-                        </Avatar>
-                        <MenuSheet />
-                        <h2 className="scroll-m-20 text-2xl font-bold tracking-tight">
-                            Kepegawaian
-                        </h2>
-                    </div>
-                    <div className="md:ml-6">
-                        <Suspense fallback={<LoadingProfile />}>
-                            <ProfileComponent />
-                        </Suspense>
-                    </div>
+        <div className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex flex-row justify-between items-center px-4">
+            <div className="flex flex-wrap gap-2 items-center content-center h-full">
+                <MenuSheet />
+                <div>
+                    <Avatar className="h-10 w-12">
+                        <Image
+                            alt="Logo Perumdam Tirta Satria"
+                            src="/images/logo_pdam_40x40.png"
+                            fill
+                            loading="lazy"
+                        />
+                    </Avatar>
+                </div>
+                <div className="font-bold text-2xl">
+                    Kepegawaian
                 </div>
             </div>
+            <Suspense fallback={<LoadingProfile />}>
+                <ProfileComponent />
+            </Suspense>
         </div>
     );
 }

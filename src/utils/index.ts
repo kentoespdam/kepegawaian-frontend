@@ -22,6 +22,8 @@ export const sessionNames = [
 export const DEFAULT_MAIL_DOMAIN = `${process.env.DEFAULT_MAIL_DOMAIN}`;
 export const AUTH_SECRET = `${process.env.AUTH_SECRET}`;
 
+export const API_URL=`${process.env.NEXT_PUBLIC_API_URL}`
+
 export const cryptr = new Cryptr(AUTH_SECRET);
 
 export const delay = async () => {
