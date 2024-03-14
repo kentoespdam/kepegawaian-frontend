@@ -12,6 +12,8 @@ import { setAuthorizeHeader } from "@helpers/index";
 import { Button } from "@components/ui/button";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@components/ui/tooltip";
+import TooltipBuilder from "@components/builder/tooltip";
 
 const getData = async (searchParams: string): Promise<Pageable<StatusPegawai> | null> => {
     try {
@@ -40,11 +42,13 @@ const StatusPegawaiPage = async ({ searchParams }: { searchParams: Record<string
                 <CardTitle className="text-bold text-md flex flex-row justify-between items-center">
                     <div>Status Pegawai</div>
                     <div>
-                        <Link href="/master/status-pegawai/add">
-                        <Button variant="ghost" className="p-0 w-6 h-6 rounded-full text-primary hover:bg-primary hover:text-primary-foreground" >
-                            <CirclePlus className="" />
-                        </Button>
-                        </Link>
+                        <TooltipBuilder text="Add Status pegawai" className="bg-primary">
+                            <Link href="/master/status-pegawai/add">
+                                <Button variant="ghost" className="p-0 w-6 h-6 rounded-full text-primary hover:bg-primary hover:text-primary-foreground" >
+                                    <CirclePlus />
+                                </Button>
+                            </Link>
+                        </TooltipBuilder>
                     </div>
                 </CardTitle>
             </CardHeader>

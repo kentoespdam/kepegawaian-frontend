@@ -39,7 +39,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
@@ -57,8 +57,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+interface LoadingButtonProps extends ButtonProps {
+  asChild?: boolean;
+  icon?: React.ReactNode
+}
+
+const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
+  ({ className, variant, size, asChild = false, icon, ...props }, ref) => {
     const { pending } = useFormStatus();
     const Comp = asChild ? Slot : "button";
 
@@ -69,7 +74,9 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={pending}
         {...props}
       >
-        {pending ? <RefreshCwIcon className="mr-2 animate-spin" /> : null}
+        {pending ? <RefreshCwIcon className="mr-2 animate-spin" /> :
+          icon ?
+            <div className="mr-2">{icon}</div> : null}
         {props.title}
       </Comp>
     );

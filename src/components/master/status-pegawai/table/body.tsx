@@ -8,7 +8,7 @@ type StatusPegawaiTableBodyProps = {
     data: Pageable<StatusPegawai>
 }
 const StatusPegawaiTableBody = ({ data }: StatusPegawaiTableBodyProps) => {
-    let urut = data.number+1;
+    let urut = data.first ? 1 : Math.ceil(data.totalPages / data.number) + 1;
     return (
         <TableBody>
             {data.empty ? (

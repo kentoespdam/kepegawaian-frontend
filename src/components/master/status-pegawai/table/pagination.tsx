@@ -1,5 +1,6 @@
 "use client"
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@components/ui/pagination";
+import { Button } from "@components/ui/button";
+import { Pagination, PaginationContent, PaginationItem } from "@components/ui/pagination";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
 import { Separator } from "@components/ui/separator";
 import { Pageable } from "@tipes/index";
@@ -14,12 +15,20 @@ type StatusPegawaiPagination = {
 const StatusPegawaiPagination = ({ data }: StatusPegawaiPagination) => {
     const searchParams = useSearchParams()
     const pathname = usePathname()
-    const { replace } = useRouter()
+    const router = useRouter()
 
     function handleSearch(k: string, v: unknown) {
+        if (k === "size") {
+            router.push(`${pathname}?size=${v}`)
+            return
+        }
         const params = new URLSearchParams(searchParams)
-        params.set(k, String(v))
-        replace(`${pathname}?${params.toString()}`)
+        params.has(k) ?
+            params.set(k, String(v)) :
+            params.append(k, String(v))
+
+        console.log(params.toString())
+        router.push(`${pathname}?${params.toString()}`)
     }
     return (
         <>
@@ -47,24 +56,24 @@ const StatusPegawaiPagination = ({ data }: StatusPegawaiPagination) => {
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
-                                <PaginationLink href="#" disabled={data.first}>
+                                <Button variant="ghost" size="icon" onClick={() => handleSearch("page", 1)} disabled={data.first}>
                                     <ChevronFirstIcon className="h-5 w-5" />
-                                </PaginationLink>
+                                </Button>
                             </PaginationItem>
                             <PaginationItem>
-                                <PaginationLink href="#" disabled={data.first}>
+                                <Button variant="ghost" size="icon" onClick={() => handleSearch("page", data.number - 1)} disabled={data.first}>
                                     <ChevronLeftIcon className="h-5 w-5" />
-                                </PaginationLink>
+                                </Button>
                             </PaginationItem>
                             <PaginationItem>
-                                <PaginationLink href="#" disabled={data.last}>
+                                <Button variant="ghost" size="icon" onClick={() => handleSearch("page", data.number + 1)} disabled={data.last}>
                                     <ChevronRightIcon className="h-5 w-5" />
-                                </PaginationLink>
+                                </Button>
                             </PaginationItem>
                             <PaginationItem>
-                                <PaginationLink href="#" disabled={data.last}>
+                                <Button variant="ghost" size="icon" onClick={() => handleSearch("page", data.totalPages)} disabled={data.last}>
                                     <ChevronLastIcon className="h-5 w-5" />
-                                </PaginationLink>
+                                </Button>
                             </PaginationItem>
                         </PaginationContent>
                     </Pagination>
