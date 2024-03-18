@@ -1,5 +1,4 @@
 "use client";
-import { hapus } from "@app/master/status-pegawai/action";
 import { Alert, AlertDescription } from "@components/ui/alert";
 import {
 	AlertDialog,
@@ -22,13 +21,21 @@ type ButtonDeleteBuilderProps = {
 	id: number;
 	href: string;
 	msg: string;
-	action: (id: number) => void;
+	action: (
+		_prevState: unknown,
+		formData: FormData,
+	) => Promise<{
+		success: boolean;
+		error: {
+			message: string;
+		};
+	}>;
 };
 
 const deleteText = "DELETE-";
 const ButtonDeleteBuilder = (props: ButtonDeleteBuilderProps) => {
 	const [open, setOpen] = React.useState(false);
-	const [state, action] = useFormState(hapus, null);
+	const [state, action] = useFormState(props.action, null);
 
 	return (
 		<AlertDialog open={open} onOpenChange={setOpen}>
@@ -54,11 +61,16 @@ const ButtonDeleteBuilder = (props: ButtonDeleteBuilderProps) => {
 							proses ini tidak bisa dibatalkan dan data yang terhapus tidak
 							dapat dikembalikan.
 							<br />
-							Ketik {" "}
-							<code className="font-normal bg-orange-300 text-gray-700 dark:text-gray-400 border px-1">
+							Ketik{" "}
+							<code className="font-normal bg-orange-300 text-gray-700 dark:text-gray-900 border px-1">
 								{`${deleteText}${props.id}`}
 							</code>
-							<Input name="deleteRef" placeholder="ketik disini" className="mt-2" />
+							<Input
+								name="deleteRef"
+								placeholder="ketik disini"
+								className="mt-2"
+								autoComplete="off"
+							/>
 						</AlertDialogDescription>
 						{state && !state.success ? (
 							<Alert variant="destructive" className="mt-2 p-2">

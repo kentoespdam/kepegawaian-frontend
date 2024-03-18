@@ -15,6 +15,14 @@ export const BaseId = z.object({
 	id: z.number(),
 });
 
+export const BaseDelete = z.object({
+	id: z.string().startsWith("DELETE-", {
+		message: "invalid delete code!",
+	}),
+});
+
+export type BaseDelete = z.infer<typeof BaseDelete>;
+
 export const PageableSort = z.object({
 	sorted: z.boolean(),
 	unsorted: z.boolean(),
