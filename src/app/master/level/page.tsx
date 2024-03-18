@@ -8,6 +8,7 @@ import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getDataLevel } from "./action";
 import LevelTableBody from "./tableBody";
+import LevelPagination from "./pagination";
 
 const MasterLevelPage = async ({
 	searchParams,
@@ -38,6 +39,7 @@ const MasterLevelPage = async ({
 						<TableHeadBuilder columns={levelTableColumns} />
 						<LevelTableBody data={data} />
 					</Table>
+					<LevelPagination data={data} />
 				</div>
 			</CardContent>
 		</Card>
