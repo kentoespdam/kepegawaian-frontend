@@ -78,7 +78,6 @@ const StatusPegawaiPagination = ({ data }: StatusPegawaiPagination) => {
                         </PaginationContent>
                     </Pagination>
                 </div>
-
             </div >
         </>
     );

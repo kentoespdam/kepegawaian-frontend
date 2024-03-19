@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@components/ui/button";
 import {
 	Pagination,
@@ -14,7 +15,7 @@ import {
 } from "@components/ui/select";
 import { Separator } from "@components/ui/separator";
 import { Pageable } from "@tipes/index";
-import { Level } from "@tipes/master/level";
+import { Golongan } from "@tipes/master/golongan";
 import {
 	ChevronFirstIcon,
 	ChevronLastIcon,
@@ -23,26 +24,23 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type LevelPaginationProps = {
-	data: Pageable<Level> | null;
-};
-const LevelPagination = ({ data }: LevelPaginationProps) => {
+const GolonganPagination = ({ data }: { data: Pageable<Golongan> | null }) => {
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
-	const router = useRouter();
+	const { push } = useRouter();
 
 	function handleSearch(k: string, v: unknown) {
 		if (k === "size") {
-			router.push(`${pathname}?size=${v}`);
+			push(`${pathname}?size=${v}`);
 			return;
 		}
 		const params = new URLSearchParams(searchParams);
 		params.has(k) ? params.set(k, String(v)) : params.append(k, String(v));
 
 		console.log(params.toString());
-		router.push(`${pathname}?${params.toString()}`);
+		push(`${pathname}?${params.toString()}`);
 	}
-	if (!data) return null;
+
 	return (
 		<>
 			<Separator />
@@ -51,7 +49,7 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 					<div className="text-nowrap">Row per page</div>
 					<Select onValueChange={(v) => handleSearch("size", v)}>
 						<SelectTrigger className="border-0">
-							<SelectValue placeholder={data.size} />
+							<SelectValue placeholder={data ? data.size : 10} />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="10">10</SelectItem>
@@ -62,7 +60,8 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 					</Select>
 				</div>
 				<div className="text-sm">
-					{data.number + 1}-{data.numberOfElements} of {data.totalElements}
+					{data ? data.number + 1 : 0}-{data ? data.numberOfElements : 0} of{" "}
+					{data ? data.totalElements : 0}
 				</div>
 				<div>
 					<Pagination>
@@ -72,7 +71,7 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 									variant="ghost"
 									size="icon"
 									onClick={() => handleSearch("page", 1)}
-									disabled={data.first}
+									disabled={data?.first}
 								>
 									<ChevronFirstIcon className="h-5 w-5" />
 								</Button>
@@ -81,8 +80,10 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 								<Button
 									variant="ghost"
 									size="icon"
-									onClick={() => handleSearch("page", data.number - 1)}
-									disabled={data.first}
+									onClick={() =>
+										handleSearch("page", data ? data.number - 1 : 0)
+									}
+									disabled={data?.first}
 								>
 									<ChevronLeftIcon className="h-5 w-5" />
 								</Button>
@@ -91,8 +92,10 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 								<Button
 									variant="ghost"
 									size="icon"
-									onClick={() => handleSearch("page", data.number + 1)}
-									disabled={data.last}
+									onClick={() =>
+										handleSearch("page", data ? data.number + 1 : 0)
+									}
+									disabled={data?.last}
 								>
 									<ChevronRightIcon className="h-5 w-5" />
 								</Button>
@@ -101,8 +104,10 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 								<Button
 									variant="ghost"
 									size="icon"
-									onClick={() => handleSearch("page", data.totalPages)}
-									disabled={data.last}
+									onClick={() =>
+										handleSearch("page", data ? data.totalPages : 0)
+									}
+									disabled={data?.last}
 								>
 									<ChevronLastIcon className="h-5 w-5" />
 								</Button>
@@ -115,4 +120,4 @@ const LevelPagination = ({ data }: LevelPaginationProps) => {
 	);
 };
 
-export default LevelPagination;
+export default GolonganPagination;

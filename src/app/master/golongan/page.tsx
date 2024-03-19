@@ -3,30 +3,29 @@ import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { levelTableColumns } from "@tipes/master/level";
+import { golonganTableColumns } from "@tipes/master/golongan";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
-import { getDataLevel } from "./action";
-import LevelPagination from "./pagination";
-import LevelTableBody from "./tableBody";
+import GolonganTableBody from "./table-body";
+import GolonganPagination from "./pagination";
+import { getDataGolongan } from "./action";
 
 export const metadata = {
-	title: "Master Level",
+	title: "Master Golongan",
 };
-
-const MasterLevelPage = async ({
+const GolonganPage = async ({
 	searchParams,
 }: { searchParams: Record<string, string> }) => {
 	const urlSearchParams = new URLSearchParams(searchParams);
-	const data = await getDataLevel(urlSearchParams.toString());
+	const data = await getDataGolongan(urlSearchParams.toString());
 
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle className="text-bold text-md flex flex-row justify-between items-center">
-					<span>Master Level</span>
-					<TooltipBuilder text="Add Level" className="bg-primary">
-						<Link href="/master/level/add">
+					<span>Master Golongan</span>
+					<TooltipBuilder text="Add Golongan" className="bg-primary">
+						<Link href="/master/golongan/add">
 							<Button
 								variant="ghost"
 								className="p-0 w-6 h-6 rounded-full text-primary hover:bg-primary hover:text-primary-foreground"
@@ -40,14 +39,14 @@ const MasterLevelPage = async ({
 			<CardContent>
 				<div className="rounder-md border">
 					<Table>
-						<TableHeadBuilder columns={levelTableColumns} />
-						<LevelTableBody data={data} />
+						<TableHeadBuilder columns={golonganTableColumns} />
+						<GolonganTableBody data={data} />
 					</Table>
-					<LevelPagination data={data} />
+					<GolonganPagination data={data} />
 				</div>
 			</CardContent>
 		</Card>
 	);
 };
 
-export default MasterLevelPage;
+export default GolonganPage;

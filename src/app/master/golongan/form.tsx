@@ -1,8 +1,8 @@
 "use client";
 
-import { Level } from "@tipes/master/level";
-import { saveLevel } from "./action";
+import { Golongan } from "@tipes/master/golongan";
 import { useFormState } from "react-dom";
+import { saveGolongan } from "./action";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -12,25 +12,23 @@ import { Input } from "@components/ui/input";
 import { Button, LoadingButton } from "@components/ui/button";
 import { SaveIcon } from "lucide-react";
 
-type LevelFormProps = {
-	data?: Level;
-};
-const LevelForm = (props: LevelFormProps) => {
-	const { data } = props;
-	const [state, action] = useFormState(saveLevel, null);
-	const form = useForm<Level>({
-		resolver: zodResolver(Level),
+const GolonganForm = ({ data }: { data?: Golongan }) => {
+	const [state, action] = useFormState(saveGolongan, null);
+	const form = useForm<Golongan>({
+		resolver: zodResolver(Golongan),
 		defaultValues: {
 			id: data ? data.id : 0,
-			nama: data ? data.nama : "",
+			golongan: data ? data.golongan : "",
+			pangkat: data ? data.pangkat : "",
 		},
 	});
-	const router = useRouter();
 
-	const cancelForm = () => {
-		form.reset();
-		router.push("/master/level");
-	};
+    const {push}=useRouter()
+
+    const cancelForm=()=>{
+        form.reset()
+        push("/master/golongan")
+    }
 
 	return (
 		<>
@@ -41,11 +39,21 @@ const LevelForm = (props: LevelFormProps) => {
 				<form className="space-y-4 md:space-y-6" action={action}>
 					<FormField
 						control={form.control}
-						name="nama"
+						name="golongan"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Nama</FormLabel>
-								<Input placeholder="nama level" {...field} />
+								<FormLabel>Golongan</FormLabel>
+								<Input placeholder="golongan" {...field} />
+							</FormItem>
+						)}
+					/>
+                    <FormField
+						control={form.control}
+						name="pangkat"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Pangkat</FormLabel>
+								<Input placeholder="pangkat" {...field} />
 							</FormItem>
 						)}
 					/>
@@ -62,4 +70,4 @@ const LevelForm = (props: LevelFormProps) => {
 	);
 };
 
-export default LevelForm;
+export default GolonganForm;
