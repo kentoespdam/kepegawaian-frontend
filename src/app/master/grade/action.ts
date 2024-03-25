@@ -55,47 +55,27 @@ export const saveGrade = async (_prevState: unknown, formData: FormData) => {
 			grade: Number(formData.get("grade")),
 			tukin: Number(formData.get("tukin")),
 		});
-		// const validate = GradeFormSchema.safeParse(formData);
-		// {
-		// 	id:formData.id,
-		// 	levelId:formData.levelId,
-		// 	grade:formData.grade,
-		// 	tukin:formData.tukin,
-		// })
 
-		// return {
-		// 	status: 500,
-		// 	data: JSON.stringify(validate),
-		// };
 		if (!validate.success)
 			return { error: validate.error.flatten().fieldErrors };
 
-		// if (!validate.success)
-		// 	return {
-		// 		status: 500,
-		// 		data: validate.error.message,
-		// 	};
-		// validate.data.id
-		// 	? await axios.put(
-		// 			`${API_URL}/master/grade/${validate.data.id}`,
-		// 			formData,
-		// 			{ headers: headers },
-		// 	  )
-		// 	: await axios.post(`${API_URL}/master/grade`, formData, {
-		// 			headers: headers,
-		// 	  });
+		validate.data.id
+			? await axios.put(
+					`${API_URL}/master/grade/${validate.data.id}`,
+					formData,
+					{ headers: headers },
+			  )
+			: await axios.post(`${API_URL}/master/grade`, formData, {
+					headers: headers,
+			  });
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {
-		// console.log(err.response.data);
-		// return {
-		// 	status: err.response?.status,
-		// 	data: err.response?.data.message,
-		// };
+		return { error: err.response.data };
 	}
 
-	// revalidateTag("grade");
-	// redirect("/master/grade");
+	revalidateTag("grade");
+	redirect("/master/grade");
 };
 
 export const hapus = async (_prevState: unknown, formData: FormData) => {

@@ -4,6 +4,7 @@ import { TableBody, TableCell, TableRow } from "@components/ui/table";
 import { Pageable } from "@tipes/index";
 import { Grade, gradeTableColumns } from "@tipes/master/grade";
 import { hapus } from "./action";
+import { rupiah } from "@helpers/number";
 
 const GradeTableBody = ({ data }: { data: Pageable<Grade> | null }) => {
 	if (!data || data.empty)
@@ -26,7 +27,7 @@ const GradeTableBody = ({ data }: { data: Pageable<Grade> | null }) => {
 					<TableCell>{urut++}</TableCell>
 					<TableCell>{row.level.nama}</TableCell>
 					<TableCell>GRADE-{row.grade}</TableCell>
-					<TableCell>{row.tukin}</TableCell>
+					<TableCell align="right">{rupiah(row.tukin)}</TableCell>
 					<TableCell>
 						<ButtonDeleteBuilder
 							id={row.id}

@@ -98,9 +98,24 @@ export const PageResponse = <T extends z.ZodTypeAny>(schema: T) => {
 	});
 };
 
-export const CustomColumnDef = z.object({
-	id: z.string(),
-	label: z.string(),
-});
+export const ESearchType = z.enum(["text", "number", "level"]);
 
-export type CustomColumnDef = z.infer<typeof CustomColumnDef>;
+// export type BaseColumnDef=z.infer<typeof {
+// 	id: z.string(),
+// 	label: z.string(),
+// }>
+
+// export const CustomColumnDef = z.object({
+
+// 	search: z.optional(z.boolean()),
+// 	searchType: ESearchType,
+// });
+
+// export type CustomColumnDef = z.infer<typeof CustomColumnDef>;
+
+export type BaseColumnDef = {
+	id: string;
+	label: string;
+};
+
+export type CustomColumnDef = BaseColumnDef & { search?: boolean; searchType?: z.infer<typeof ESearchType> };

@@ -8,7 +8,6 @@ export const metadata={
 
 const AddGradePage = async() => {
     const levels=await getListLevel("")
-	console.log(levels)
 
     return (
         <Card className="mx-12 sm:mx-0 md:mx-48">

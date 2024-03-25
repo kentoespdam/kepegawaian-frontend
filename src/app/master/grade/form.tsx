@@ -2,17 +2,9 @@
 
 import AlertBuilder from "@components/builder/alert";
 import { Button } from "@components/ui/button";
-import { LoadingButton } from "@components/ui/loading-button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@components/ui/form";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
+import { LoadingButton } from "@components/ui/loading-button";
 import {
 	Select,
 	SelectContent,
@@ -20,17 +12,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@components/ui/select";
-import { inputError } from "@helpers/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Grade, GradeForm } from "@tipes/master/grade";
+import { Grade } from "@tipes/master/grade";
 import { Level } from "@tipes/master/level";
-import { cn } from "@utils/index";
 import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
-import { useForm } from "react-hook-form";
 import { saveGrade } from "./action";
-import { useToast } from "@components/ui/use-toast";
 
 const GradeFormComponent = ({
 	levels,
@@ -44,14 +31,19 @@ const GradeFormComponent = ({
 			{state && state.error !== undefined ? (
 				<div className="mb-2">
 					{Object.entries(state.error).map(([key, value]) => (
-						<AlertBuilder key={key} message={value} variant="error" untitled />
+						<AlertBuilder
+							key={key}
+							message={String(value)}
+							variant="error"
+							untitled
+						/>
 					))}
 				</div>
 			) : null}
 			<form className="space-y-4" action={action}>
 				<div className="grid w-full items-center gap-1.5">
 					<Label htmlFor="levelId">Level</Label>
-					<Select name="levelId">
+					<Select name="levelId" defaultValue={String(data?.level.id)}>
 						<SelectTrigger id="levelId" aria-required="true">
 							<SelectValue placeholder="Select Level" aria-required="true" />
 						</SelectTrigger>
@@ -72,6 +64,7 @@ const GradeFormComponent = ({
 						name="grade"
 						type="number"
 						placeholder="grade"
+						defaultValue={data?.grade}
 						required
 					/>
 				</div>
@@ -83,6 +76,7 @@ const GradeFormComponent = ({
 						name="tukin"
 						type="number"
 						placeholder="tukin"
+						defaultValue={data?.tukin}
 						required
 					/>
 				</div>

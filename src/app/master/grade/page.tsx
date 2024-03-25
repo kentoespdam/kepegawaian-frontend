@@ -9,14 +9,15 @@ import { CirclePlusIcon } from "lucide-react";
 import GradePagination from "./pagination";
 import GradeTableBody from "./body";
 import { Table } from "@components/ui/table";
+import SearchBuilder from "@components/builder/search";
 
-export const metadata={
-    title:"Master Grade"
-}
-const GradePage = async({
+export const metadata = {
+	title: "Master Grade",
+};
+const GradePage = async ({
 	searchParams,
 }: { searchParams: Record<string, string> }) => {
-    const urlSearchParams = new URLSearchParams(searchParams);
+	const urlSearchParams = new URLSearchParams(searchParams);
 	const data = await getDataGrade(urlSearchParams.toString());
 
 	return (
@@ -37,6 +38,7 @@ const GradePage = async({
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
+				<SearchBuilder columns={gradeTableColumns} />
 				<div className="rounder-md border">
 					<Table>
 						<TableHeadBuilder columns={gradeTableColumns} />
@@ -47,6 +49,6 @@ const GradePage = async({
 			</CardContent>
 		</Card>
 	);
-}
+};
 
 export default GradePage;

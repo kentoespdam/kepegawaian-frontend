@@ -2,20 +2,20 @@ import { TableHead, TableHeader, TableRow } from "@components/ui/table";
 import { CustomColumnDef } from "@tipes/index";
 
 type TableHeadBuilderProps = {
-    columns: CustomColumnDef[]
-}
+	columns: CustomColumnDef[];
+};
 const TableHeadBuilder = ({ columns }: TableHeadBuilderProps) => {
-    return (
-        <TableHeader>
-            <TableRow>
-                {columns.map(head => (
-                    <TableHead key={head.id}>
-                        {head.label}
-                    </TableHead>
-                ))}
-            </TableRow>
-        </TableHeader>
-    );
-}
+	return (
+		<TableHeader>
+			<TableRow>
+				{columns.map((head) => (
+					<TableHead key={head.id} className="text-center">
+						<div className="grid justify-items-center">{head.label}</div>
+					</TableHead>
+				))}
+			</TableRow>
+		</TableHeader>
+	);
+};
 
 export default TableHeadBuilder;
