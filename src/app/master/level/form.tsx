@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 import AlertBuilder from "@components/builder/alert";
 import { Form, FormField, FormItem, FormLabel } from "@components/ui/form";
 import { Input } from "@components/ui/input";
-import { Button, LoadingButton } from "@components/ui/button";
+import { Button } from "@components/ui/button";
+import { LoadingButton } from "@components/ui/loading-button";
 import { SaveIcon } from "lucide-react";
 
 type LevelFormProps = {

@@ -10,7 +10,8 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@components/ui/alert-dialog";
-import { Button, LoadingButton } from "@components/ui/button";
+import { Button } from "@components/ui/button";
+import { LoadingButton } from "@components/ui/loading-button";
 import { Input } from "@components/ui/input";
 import { DeleteIcon } from "lucide-react";
 import React from "react";

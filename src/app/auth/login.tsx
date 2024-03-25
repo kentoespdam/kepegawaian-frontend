@@ -1,7 +1,7 @@
 "use client";
 
 import AlertBuilder from "@components/builder/alert";
-import { LoadingButton } from "@components/ui/button";
+import { LoadingButton } from "@components/ui/loading-button";
 import { Input } from "@components/ui/input";
 import { redirect } from "next/navigation";
 import { useFormState } from "react-dom";

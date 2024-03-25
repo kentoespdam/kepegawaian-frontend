@@ -2,56 +2,37 @@
 
 import { setAuthorizeHeader } from "@helpers/index";
 import { BaseDelete, Pageable } from "@tipes/index";
-import { Level } from "@tipes/master/level";
+import { Grade, GradeForm, GradeFormSchema } from "@tipes/master/grade";
 import { API_URL } from "@utils/index";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const getDataLevel = async (
+export const getDataGrade = async (
 	searchParams: string,
-): Promise<Pageable<Level> | null> => {
+): Promise<Pageable<Grade> | null> => {
 	try {
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
 		const { data } = await axios.get(
-			`${API_URL}/master/level?${searchParams}`,
+			`${API_URL}/master/grade?${searchParams}`,
 			{ headers: headers },
 		);
 
 		return data.data;
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	} catch (error: any) {
-		console.log(error.response.data);
+	} catch (err: any) {
+		console.log(err.response.data);
 		return null;
 	}
 };
 
-export const getListLevel = async (
-	searchParams: string,
-): Promise<Level[] | null> => {
+export const getGradeById = async (id: number) => {
 	try {
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
-		const { data } = await axios.get(
-			`${API_URL}/master/level/list?${searchParams}`,
-			{ headers: headers },
-		);
-
-		return data.data;
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	} catch (error: any) {
-		console.log("get level list",error.response.data);
-		return null;
-	}
-};
-
-export const getLevelById = async (id: number) => {
-	try {
-		const cookieList = cookies();
-		const headers = setAuthorizeHeader(cookieList);
-		const { data } = await axios.get(`${API_URL}/master/level/${id}`, {
+		const { data } = await axios.get(`${API_URL}/master/grade/${id}`, {
 			headers: headers,
 		});
 		return data.data;
@@ -61,42 +42,60 @@ export const getLevelById = async (id: number) => {
 	}
 };
 
-export const saveLevel = async (_prevState: unknown, formData: FormData) => {
+export const saveGrade = async (_prevState: unknown, formData: FormData) => {
 	const cookieList = cookies();
 	const headers = setAuthorizeHeader(cookieList);
 
-	try {
-		const validate = Level.safeParse({
-			id: Number(formData.get("id")),
-			nama: formData.get("nama"),
-		});
+	// console.log(formData.get("level"))
 
+	try {
+		const validate = GradeForm.safeParse({
+			id: Number(formData.get("id")),
+			levelId: Number(formData.get("levelId")),
+			grade: Number(formData.get("grade")),
+			tukin: Number(formData.get("tukin")),
+		});
+		// const validate = GradeFormSchema.safeParse(formData);
+		// {
+		// 	id:formData.id,
+		// 	levelId:formData.levelId,
+		// 	grade:formData.grade,
+		// 	tukin:formData.tukin,
+		// })
+
+		// return {
+		// 	status: 500,
+		// 	data: JSON.stringify(validate),
+		// };
 		if (!validate.success)
-			return {
-				status: 500,
-				data: validate.error.message,
-			};
-		validate.data.id > 0
-			? await axios.put(
-					`${API_URL}/master/level/${validate.data.id}`,
-					formData,
-					{ headers: headers },
-			  )
-			: await axios.post(`${API_URL}/master/level`, formData, {
-					headers: headers,
-			  });
+			return { error: validate.error.flatten().fieldErrors };
+
+		// if (!validate.success)
+		// 	return {
+		// 		status: 500,
+		// 		data: validate.error.message,
+		// 	};
+		// validate.data.id
+		// 	? await axios.put(
+		// 			`${API_URL}/master/grade/${validate.data.id}`,
+		// 			formData,
+		// 			{ headers: headers },
+		// 	  )
+		// 	: await axios.post(`${API_URL}/master/grade`, formData, {
+		// 			headers: headers,
+		// 	  });
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {
-		console.log(err.response.data);
-		return {
-			status: err.response?.status,
-			data: err.response?.data,
-		};
+		// console.log(err.response.data);
+		// return {
+		// 	status: err.response?.status,
+		// 	data: err.response?.data.message,
+		// };
 	}
 
-	revalidateTag("level");
-	redirect("/master/level");
+	// revalidateTag("grade");
+	// redirect("/master/grade");
 };
 
 export const hapus = async (_prevState: unknown, formData: FormData) => {
@@ -123,7 +122,9 @@ export const hapus = async (_prevState: unknown, formData: FormData) => {
 				error: { message: "invalid data" },
 			};
 
-		await axios.delete(`${API_URL}/master/level/${id}`, { headers: headers });
+		await axios.delete(`${API_URL}/master/grade/${id}`, {
+			headers: headers,
+		});
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {
@@ -136,6 +137,6 @@ export const hapus = async (_prevState: unknown, formData: FormData) => {
 		};
 	}
 
-	revalidateTag("level");
-	redirect("/master/level");
+	revalidateTag("grade");
+	redirect("/master/grade");
 };

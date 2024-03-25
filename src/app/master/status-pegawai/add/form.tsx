@@ -1,7 +1,8 @@
 "use client";
 
 import AlertBuilder from "@components/builder/alert";
-import { Button, LoadingButton } from "@components/ui/button";
+import { Button } from "@components/ui/button";
+import { LoadingButton } from "@components/ui/loading-button";
 import { Form, FormField, FormItem, FormLabel } from "@components/ui/form";
 import { Input } from "@components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";

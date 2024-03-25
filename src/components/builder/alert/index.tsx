@@ -11,15 +11,23 @@ const alertVariant = (variant?: string) => {
 	}
 };
 type AlertBuilderProps = {
-	message: string;
-	variant?: "error" | "success" | "warning";
+	message: string | string[];
+	variant?: "error" | "success" | "warning" | "destructive";
+	untitled?: boolean;
 };
 const AlertBuilder = (props: AlertBuilderProps) => {
 	return (
-		<Alert className={alertVariant(props.variant)}>
-			<AlertTitle className="uppercase">
-				{props.variant ? props.variant : "success"}
-			</AlertTitle>
+		<Alert
+			variant={props.variant === "destructive" ? "destructive" : "default"}
+			className={
+				props.variant !== "destructive" ? alertVariant(props.variant) : ""
+			}
+		>
+			{props.untitled ? null : (
+				<AlertTitle className="uppercase">
+					{props.variant ? props.variant : "success"}
+				</AlertTitle>
+			)}
 			<AlertDescription>{props.message}</AlertDescription>
 		</Alert>
 	);
