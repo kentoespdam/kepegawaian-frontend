@@ -2,12 +2,61 @@
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { CustomColumnDef } from "@tipes/index";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Level } from "@tipes/master/level";
+import {
+	ReadonlyURLSearchParams,
+	usePathname,
+	useRouter,
+	useSearchParams,
+} from "next/navigation";
+import LevelSearchBuilder from "./levelSearch";
+
+type SearchComponentProps = {
+	col: CustomColumnDef;
+	searchParams: ReadonlyURLSearchParams;
+	levels?: Level[];
+};
+const SearchComponent = ({
+	col,
+	searchParams,
+	levels,
+}: SearchComponentProps) => {
+	if (!col.search) return null;
+
+	switch (col.searchType) {
+		case "level": {
+			const levelId = searchParams.get("levelId");
+			return !levels ? null : (
+				<div className="w-52">
+					<LevelSearchBuilder
+						levels={levels}
+						levelId={levelId === null ? "" : levelId}
+					/>
+				</div>
+			);
+		}
+		default:
+			return (
+				<div>
+					<Input
+						name={col.id}
+						placeholder={`Search for ${col.label}...`}
+						defaultValue={
+							searchParams.get(col.id) === null
+								? ""
+								: String(searchParams.get(col.id))
+						}
+					/>
+				</div>
+			);
+	}
+};
 
 type SearchBuilderProps = {
 	columns: CustomColumnDef[];
+	levels?: Level[];
 };
-const SearchBuilder = ({ columns }: SearchBuilderProps) => {
+const SearchBuilder = ({ columns, levels }: SearchBuilderProps) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -26,25 +75,28 @@ const SearchBuilder = ({ columns }: SearchBuilderProps) => {
 		router.push(`${pathname}?${params.toString()}`);
 	};
 
+	const clearSearch = () => {
+		const params = new URLSearchParams();
+		router.push(`${pathname}?${params.toString()}`);
+	};
+
 	return (
 		<form onSubmit={doSearch}>
-			<div className="flex flex-row justify-start border-b">
-				{columns.map((column) =>
-					column.search ? (
-						<div key={column.id}>
-							<Input
-								name={column.id}
-								placeholder={`Search for ${column.label}...`}
-								defaultValue={
-									searchParams.get(column.id) === null
-										? ""
-										: String(searchParams.get(column.id))
-								}
-							/>
-						</div>
-					) : null,
-				)}
-				<Button variant="outline">Cari</Button>
+			<div className="flex flex-row justify-start border-b gap-2">
+				{columns.map((column) => (
+					<SearchComponent
+						key={column.id}
+						col={column}
+						searchParams={searchParams}
+						levels={levels}
+					/>
+				))}
+				<Button variant="outline" type="reset" onClick={clearSearch}>
+					Clear
+				</Button>
+				<Button variant="outline" type="submit">
+					Cari
+				</Button>
 			</div>
 		</form>
 	);

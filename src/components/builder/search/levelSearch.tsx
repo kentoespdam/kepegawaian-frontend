@@ -1,4 +1,4 @@
-import { getListLevel } from "@app/master/level/action";
+"use client";
 import {
 	Select,
 	SelectContent,
@@ -6,12 +6,17 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@components/ui/select";
+import { Level } from "@tipes/master/level";
 
-const LevelSearchBuilder = async ({ levelId }: { levelId: number }) => {
-	const levels = await getListLevel("");
+type LevelSearchBuilderProps = {
+	levels: Level[];
+	levelId: string;
+};
+
+const LevelSearchBuilder = ({ levels, levelId }: LevelSearchBuilderProps) => {
 	return (
-		<Select name="levelId" defaultValue={String(levelId)}>
-			<SelectTrigger id="levelId" aria-required="true">
+		<Select name="levelId" defaultValue={levelId}>
+			<SelectTrigger id="levelId" aria-required="true" className="min-w-full">
 				<SelectValue placeholder="Select Level" aria-required="true" />
 			</SelectTrigger>
 			<SelectContent>

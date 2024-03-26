@@ -10,6 +10,7 @@ import GradePagination from "./pagination";
 import GradeTableBody from "./body";
 import { Table } from "@components/ui/table";
 import SearchBuilder from "@components/builder/search";
+import { getListLevel } from "../level/action";
 
 export const metadata = {
 	title: "Master Grade",
@@ -19,6 +20,7 @@ const GradePage = async ({
 }: { searchParams: Record<string, string> }) => {
 	const urlSearchParams = new URLSearchParams(searchParams);
 	const data = await getDataGrade(urlSearchParams.toString());
+	const levels = await getListLevel("");
 
 	return (
 		<Card>
@@ -38,7 +40,10 @@ const GradePage = async ({
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<SearchBuilder columns={gradeTableColumns} />
+				<SearchBuilder
+					columns={gradeTableColumns}
+					levels={levels ? levels : undefined}
+				/>
 				<div className="rounder-md border">
 					<Table>
 						<TableHeadBuilder columns={gradeTableColumns} />
