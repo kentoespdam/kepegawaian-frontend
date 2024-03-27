@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@components/ui/card";
 import { getStatusPegawaiById } from "../../action";
-import StatusPegawaiForm from "../../add/form";
+import StatusPegawaiForm from "../../form";
 
 export const metadata = {
 	title: "Edit Status Pegawai",

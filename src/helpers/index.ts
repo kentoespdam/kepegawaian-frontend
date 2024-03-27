@@ -4,12 +4,12 @@ import {
 	projectId,
 	sessionNames,
 } from "@utils/index";
-import {
+import type {
 	RequestCookie,
 	RequestCookies,
 } from "next/dist/compiled/@edge-runtime/cookies";
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import type { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 
 export const isValidIpAddress = (ipAddress?: string) => {

@@ -6,7 +6,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@components/ui/select";
-import { Level } from "@tipes/master/level";
+import type { Level } from "@tipes/master/level";
 
 type LevelSearchBuilderProps = {
 	levels: Level[];

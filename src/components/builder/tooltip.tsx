@@ -1,7 +1,5 @@
-import { buttonVariants } from "@components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@components/ui/tooltip";
 import { cn } from "@utils/index";
-import React from "react";
 
 type TooltipBuilderProps = {
     text: string
@@ -10,8 +8,8 @@ type TooltipBuilderProps = {
 }
 const TooltipBuilder = (props: TooltipBuilderProps) => {
     return (
-        <TooltipProvider>
-            <Tooltip>
+        <TooltipProvider delayDuration={0}>
+            <Tooltip delayDuration={0}>
                 <TooltipTrigger asChild>
                     {props.children}
                 </TooltipTrigger>

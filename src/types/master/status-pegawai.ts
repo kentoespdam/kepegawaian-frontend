@@ -1,12 +1,15 @@
 import { z } from "zod";
-import { CustomColumnDef } from "..";
+import type { CustomColumnDef } from "..";
 
-export const StatusPegawai = z.object({
+export type StatusPegawai = {
+	id: number;
+	nama: string;
+};
+
+export const StatusPegawaiSchema = z.object({
 	id: z.number(),
 	nama: z.string(),
 });
-
-export type StatusPegawai = z.infer<typeof StatusPegawai>;
 
 export const statusPegawaiTableColumns: CustomColumnDef[] = [
 	{
@@ -16,6 +19,8 @@ export const statusPegawaiTableColumns: CustomColumnDef[] = [
 	{
 		id: "nama",
 		label: "Nama",
+		search: true,
+		searchType: "text"
 	},
 	{
 		id: "aksi",

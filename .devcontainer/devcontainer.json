@@ -17,11 +17,11 @@
         "pulkitgangwar.nextjs-snippets",
         "bradlc.vscode-tailwindcss",
         "alfredbirk.tailwind-documentation",
-        "10nates.ollama-autocoder",
         "nucllear.vscode-extension-auto-import",
         "amazonwebservices.aws-toolkit-vscode",
         "pulkitgangwar.nextjs-snippets",
-        "formulahendry.auto-rename-tag"
+        "formulahendry.auto-rename-tag",
+        "wallabyjs.console-ninja"
       ],
       "settings": {
         "typescript.tsdk": "node_modules/typescript/lib",

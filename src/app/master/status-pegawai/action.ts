@@ -1,34 +1,35 @@
 "use server";
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { Pageable } from "@tipes/index";
-import { StatusPegawai } from "@tipes/master/status-pegawai";
+import { DeleteSchema, type Pageable } from "@tipes/index";
+import {
+	StatusPegawaiSchema,
+	type StatusPegawai,
+} from "@tipes/master/status-pegawai";
 import { API_URL } from "@utils/index";
-import axios, { AxiosError } from "axios";
-import { revalidateTag } from "next/cache";
+import axios, { type AxiosError } from "axios";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { DeleteSchema, StatusPegawaiSchema } from "./schema";
 
 export const getDataStatusPegawai = async (
 	searchParams: string,
-): Promise<Pageable<StatusPegawai> | null> => {
-	try {
-		const cookieList = cookies();
-		const headers = setAuthorizeHeader(cookieList);
-		const { data } = await axios.get(
-			`${API_URL}/master/status-pegawai?${searchParams}`,
-			{
-				headers: headers,
-			},
-		);
+): Promise<Pageable<StatusPegawai>> => {
+	revalidatePath("/master/status-pegawai")
+	revalidateTag("status-pegawai")
+	const cookieList = cookies();
+	const headers = setAuthorizeHeader(cookieList);
+	const { data, status } = await axios.get(
+		`${API_URL}/master/status-pegawai?${searchParams}`,
+		{
+			headers: headers,
+		},
+	);
 
-		return data.data;
-	} catch (e) {
-		const err = e as unknown as AxiosError;
-		console.log(err.response);
-		return null;
-	}
+	if (status !== 200)
+		throw new Error(data.response.message)
+
+	return data.data;
 };
 
 export const getStatusPegawaiById = async (id: number) => {
@@ -56,30 +57,25 @@ export const saveStatusPegawai = async (
 			id: Number(formData.get("id")),
 			nama: formData.get("nama"),
 		});
+		console.log(formData.get("nama"))
 
 		if (!validate.success)
-			return {
-				status: 500,
-				data: validate.error.message,
-			};
+			return { error: validate.error.flatten().fieldErrors };
 
 		validate.data.id > 0
 			? await axios.put(
-					`${API_URL}/master/status-pegawai/${validate.data.id}`,
-					formData,
-					{
-						headers: headers,
-					},
-			  )
-			: await axios.post(`${API_URL}/master/status-pegawai`, formData, {
+				`${API_URL}/master/status-pegawai/${validate.data.id}`,
+				formData,
+				{
 					headers: headers,
-			  });
-	} catch (err) {
-		const error = err as unknown as AxiosError;
-		return {
-			status: error.response?.status,
-			data: error.response?.data,
-		};
+				},
+			)
+			: await axios.post(`${API_URL}/master/status-pegawai`, formData, {
+				headers: headers,
+			});
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	} catch (err: any) {
+		return { error: err.response.data };
 	}
 
 	revalidateTag("status-pegawai");
@@ -89,7 +85,7 @@ export const saveStatusPegawai = async (
 export const hapus = async (_prevState: unknown, formData: FormData) => {
 	const cookieList = cookies();
 	const headers = setAuthorizeHeader(cookieList);
-	
+
 	try {
 		const validate = DeleteSchema.safeParse({
 			deleteRef: formData.get("deleteRef"),

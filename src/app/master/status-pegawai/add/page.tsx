@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
-import StatusPegawaiForm from "./form";
+import StatusPegawaiForm from "../form";
 
 const AddStatusPegawai = () => {
     return (

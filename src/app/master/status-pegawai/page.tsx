@@ -1,7 +1,6 @@
 import TableHeadBuilder from "@components/builder/table/head";
+import PaginationBuilder from "@components/builder/table/pagination";
 import TooltipBuilder from "@components/builder/tooltip";
-import StatusPegawaiTableBody from "@components/master/status-pegawai/table/body";
-import StatusPegawaiPagination from "@components/master/status-pegawai/table/pagination";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
@@ -9,18 +8,20 @@ import { statusPegawaiTableColumns } from "@tipes/master/status-pegawai";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import { getDataStatusPegawai } from "./action";
+import StatusPegawaiTableBody from "./body";
+import SearchBuilder from "@components/builder/search";
 
-
+export const revalidate = 10
 const StatusPegawaiPage = async ({ searchParams }: { searchParams: Record<string, string> }) => {
     const urlSearchParams = new URLSearchParams(searchParams)
     const data = await getDataStatusPegawai(urlSearchParams.toString())
-    if (!data) return <>No Content</>
+    // if (!data) return <>No Content</>
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle className="text-bold text-md flex flex-row justify-between items-center">
-                    <div>Status Pegawai</div>
+                    <span className="font-bold">Status Pegawai</span>
                     <div>
                         <TooltipBuilder text="Add Status pegawai" className="bg-primary">
                             <Link href="/master/status-pegawai/add">
@@ -33,12 +34,13 @@ const StatusPegawaiPage = async ({ searchParams }: { searchParams: Record<string
                 </CardTitle>
             </CardHeader>
             <CardContent>
+                <SearchBuilder columns={statusPegawaiTableColumns} />
                 <div className="rounded-md border">
                     <Table>
                         <TableHeadBuilder columns={statusPegawaiTableColumns} />
                         <StatusPegawaiTableBody data={data} />
                     </Table>
-                    <StatusPegawaiPagination data={data} />
+                    <PaginationBuilder data={data} />
                 </div>
             </CardContent>
         </Card>

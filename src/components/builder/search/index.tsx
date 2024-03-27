@@ -1,15 +1,20 @@
 "use client";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import { CustomColumnDef } from "@tipes/index";
-import { Level } from "@tipes/master/level";
+import { Tooltip, TooltipProvider } from "@components/ui/tooltip";
+import { ResetIcon } from "@radix-ui/react-icons";
+import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+import type { CustomColumnDef } from "@tipes/index";
+import type { Level } from "@tipes/master/level";
 import {
-	ReadonlyURLSearchParams,
 	usePathname,
 	useRouter,
 	useSearchParams,
+	type ReadonlyURLSearchParams,
 } from "next/navigation";
 import LevelSearchBuilder from "./levelSearch";
+import { SearchIcon } from "lucide-react";
+import TooltipBuilder from "../tooltip";
 
 type SearchComponentProps = {
 	col: CustomColumnDef;
@@ -81,8 +86,8 @@ const SearchBuilder = ({ columns, levels }: SearchBuilderProps) => {
 	};
 
 	return (
-		<form onSubmit={doSearch}>
-			<div className="flex flex-row justify-start border-b gap-2">
+		<form onSubmit={doSearch} className="mb-2">
+			<div className="flex flex-row justify-start gap-2">
 				{columns.map((column) => (
 					<SearchComponent
 						key={column.id}
@@ -91,12 +96,16 @@ const SearchBuilder = ({ columns, levels }: SearchBuilderProps) => {
 						levels={levels}
 					/>
 				))}
-				<Button variant="outline" type="reset" onClick={clearSearch}>
-					Clear
-				</Button>
-				<Button variant="outline" type="submit">
-					Cari
-				</Button>
+				<TooltipBuilder text="Clear Search" className="bg-destructive text-destructive-foreground">
+					<Button variant="outline" type="reset" size="icon" onClick={clearSearch}>
+						<ResetIcon className="text-destructive" />
+					</Button>
+				</TooltipBuilder>
+				<TooltipBuilder text="Search Data">
+					<Button variant="outline" type="submit" size="icon">
+						<SearchIcon className="w-4 h-4 text-primary" />
+					</Button>
+				</TooltipBuilder>
 			</div>
 		</form>
 	);
