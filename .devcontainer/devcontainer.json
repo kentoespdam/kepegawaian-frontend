@@ -3,20 +3,39 @@
 {
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye"
-
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
-
 	// Configure tool-specific properties.
-	// "customizations": {},
-
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"patbenatar.advanced-new-file",
+				"formulahendry.auto-rename-tag",
+				"biomejs.biome-nightly",
+				"sleistner.vscode-fileutils",
+				"wix.vscode-import-cost",
+				"pulkitgangwar.nextjs-snippets",
+				"csstools.postcss",
+				"bradlc.vscode-tailwindcss",
+				"codeium.codeium"
+			],
+			"settings": {
+				"typescript.tsdk": "node_modules/typescript/lib",
+				"javascript.suggest.autoImports": true,
+				"javascript.suggest.includeCompletionsForImportStatements": true,
+				"javascript.updateImportsOnFileMove.enabled": "always",
+				"typescript.updateImportsOnFileMove.enabled": "always",
+				"typescript.validate.enable": true,
+				"javascript.validate.enable": true,
+				"eslint.alwaysShowStatus": true
+			}
+		}
+	}
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }

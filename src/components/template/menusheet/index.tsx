@@ -2,6 +2,7 @@ import { Button } from "@components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
 import { LayoutDashboardIcon } from "lucide-react";
 import SheetMenuCommand from "./menu-command";
+import SheetMenuDropdown from "./menu-dropdown";
 
 const MenuSheet = () => {
 	return (
@@ -12,7 +13,8 @@ const MenuSheet = () => {
 				</Button>
 			</SheetTrigger>
 			<SheetContent side="left" className="w-fit p-0 ">
-				<SheetMenuCommand />
+				{/* <SheetMenuCommand /> */}
+				<SheetMenuDropdown />
 			</SheetContent>
 		</Sheet>
 	);
