@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CustomColumnDef } from "..";
+import type { CustomColumnDef } from "..";
 
 export const Level = z.object({
 	id: z.number(),
@@ -16,6 +16,8 @@ export const levelTableColumns: CustomColumnDef[] = [
 	{
 		id: "nama",
 		label: "Nama",
+		search: true,
+		searchType: "text"
 	},
 	{
 		id: "aksi",

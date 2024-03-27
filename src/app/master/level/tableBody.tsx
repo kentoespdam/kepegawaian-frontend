@@ -1,8 +1,8 @@
 import ButtonDeleteBuilder from "@components/builder/button/delete";
 import ButtonEditBuilder from "@components/builder/button/edit";
 import { TableBody, TableCell, TableRow } from "@components/ui/table";
-import { Pageable } from "@tipes/index";
-import { Level, levelTableColumns } from "@tipes/master/level";
+import type { Pageable } from "@tipes/index";
+import { type Level, levelTableColumns } from "@tipes/master/level";
 import { hapus } from "./action";
 
 type LevelTableBodyProps = {
@@ -27,9 +27,9 @@ const LevelTableBody = ({ data }: LevelTableBodyProps) => {
 		<TableBody>
 			{data.content.map((row) => (
 				<TableRow key={row.id}>
-					<TableCell>{urut++}</TableCell>
+					<TableCell align="right" width={60}>{urut++}</TableCell>
 					<TableCell>{row.nama}</TableCell>
-					<TableCell>
+					<TableCell align="center">
 						<ButtonDeleteBuilder
 							id={row.id}
 							href={`/master/level/${row.id}`}

@@ -1,7 +1,7 @@
 "use server";
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, Pageable } from "@tipes/index";
+import { BaseDelete, type Pageable } from "@tipes/index";
 import { Level } from "@tipes/master/level";
 import { API_URL } from "@utils/index";
 import axios from "axios";
@@ -11,21 +11,18 @@ import { redirect } from "next/navigation";
 
 export const getDataLevel = async (
 	searchParams: string,
-): Promise<Pageable<Level> | null> => {
-	try {
-		const cookieList = cookies();
-		const headers = setAuthorizeHeader(cookieList);
-		const { data } = await axios.get(
-			`${API_URL}/master/level?${searchParams}`,
-			{ headers: headers },
-		);
+): Promise<Pageable<Level>> => {
+	const cookieList = cookies();
+	const headers = setAuthorizeHeader(cookieList);
+	const { data, status } = await axios.get(
+		`${API_URL}/master/level?${searchParams}`,
+		{ headers: headers },
+	);
 
-		return data.data;
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	} catch (error: any) {
-		console.log(error.response.data);
-		return null;
-	}
+	if (status !== 200)
+		throw new Error(data.response.data.message)
+
+	return data.data;
 };
 
 export const getListLevel = async (
@@ -42,7 +39,7 @@ export const getListLevel = async (
 		return data.data;
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (error: any) {
-		console.log("get level list",error.response.data);
+		console.log("get level list", error.response.data);
 		return null;
 	}
 };
@@ -73,26 +70,22 @@ export const saveLevel = async (_prevState: unknown, formData: FormData) => {
 
 		if (!validate.success)
 			return {
-				status: 500,
-				data: validate.error.message,
+				error: validate.error.message,
 			};
 		validate.data.id > 0
 			? await axios.put(
-					`${API_URL}/master/level/${validate.data.id}`,
-					formData,
-					{ headers: headers },
-			  )
+				`${API_URL}/master/level/${validate.data.id}`,
+				formData,
+				{ headers: headers },
+			)
 			: await axios.post(`${API_URL}/master/level`, formData, {
-					headers: headers,
-			  });
+				headers: headers,
+			});
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {
 		console.log(err.response.data);
-		return {
-			status: err.response?.status,
-			data: err.response?.data,
-		};
+		return { error: err.response.data };
 	}
 
 	revalidateTag("level");

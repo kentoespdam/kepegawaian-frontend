@@ -1,17 +1,16 @@
 "use client";
 
-import { Level } from "@tipes/master/level";
-import { saveLevel } from "./action";
-import { useFormState } from "react-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import AlertBuilder from "@components/builder/alert";
-import { Form, FormField, FormItem, FormLabel } from "@components/ui/form";
+import { buttonVariants } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import { Button } from "@components/ui/button";
+import { Label } from "@components/ui/label";
 import { LoadingButton } from "@components/ui/loading-button";
+import type { Level } from "@tipes/master/level";
+import { cn } from "@utils/index";
 import { SaveIcon } from "lucide-react";
+import Link from "next/link";
+import { useFormState } from "react-dom";
+import { saveLevel } from "./action";
 
 type LevelFormProps = {
 	data?: Level;
@@ -19,46 +18,36 @@ type LevelFormProps = {
 const LevelForm = (props: LevelFormProps) => {
 	const { data } = props;
 	const [state, action] = useFormState(saveLevel, null);
-	const form = useForm<Level>({
-		resolver: zodResolver(Level),
-		defaultValues: {
-			id: data ? data.id : 0,
-			nama: data ? data.nama : "",
-		},
-	});
-	const router = useRouter();
-
-	const cancelForm = () => {
-		form.reset();
-		router.push("/master/level");
-	};
 
 	return (
 		<>
-			{state && state.status !== 201 ? (
-				<AlertBuilder variant="error" message={String(state.data)} />
+			{state && state.error !== undefined ? (
+				<div className="mb-2">
+					{Object.entries(state.error).map(([key, value]) => (
+						<AlertBuilder
+							key={key}
+							message={String(value)}
+							variant="error"
+							untitled
+						/>
+					))}
+				</div>
 			) : null}
-			<Form {...form}>
-				<form className="space-y-4 md:space-y-6" action={action}>
-					<FormField
-						control={form.control}
-						name="nama"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Nama</FormLabel>
-								<Input placeholder="nama level" {...field} />
-							</FormItem>
-						)}
-					/>
-					<div className="flex flex-row justify-end gap-2">
-						<Button variant="destructive" type="button" onClick={cancelForm}>
-							Cancel
-						</Button>
-						<LoadingButton title="Save" icon={<SaveIcon />} />
-						<input type="hidden" name="id" value={form.getValues().id} />
-					</div>
-				</form>
-			</Form>
+			<form className="space-y-4 md:space-y-6" action={action}>
+				<div className="grid w-full items-center gap-1.5">
+					<Label>Nama</Label>
+					<Input name="nama" placeholder="nama level" defaultValue={data?.nama} />
+				</div>
+				<div className="flex flex-row justify-end gap-2">
+					<Link href="/master/level" className={cn(buttonVariants({
+						variant: "destructive"
+					}))} >
+						Cancel
+					</Link>
+					<LoadingButton title="Save" icon={<SaveIcon />} />
+					<input type="hidden" name="id" value={data?.id} />
+				</div>
+			</form>
 		</>
 	);
 };

@@ -1,4 +1,5 @@
 import TableHeadBuilder from "@components/builder/table/head";
+import PaginationBuilder from "@components/builder/table/pagination";
 import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
@@ -7,8 +8,8 @@ import { levelTableColumns } from "@tipes/master/level";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getDataLevel } from "./action";
-import LevelPagination from "./pagination";
 import LevelTableBody from "./tableBody";
+import SearchBuilder from "@components/builder/search";
 
 export const metadata = {
 	title: "Master Level",
@@ -38,12 +39,13 @@ const MasterLevelPage = async ({
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
+				<SearchBuilder columns={levelTableColumns} />
 				<div className="rounder-md border">
 					<Table>
 						<TableHeadBuilder columns={levelTableColumns} />
 						<LevelTableBody data={data} />
 					</Table>
-					<LevelPagination data={data} />
+					<PaginationBuilder data={data} />
 				</div>
 			</CardContent>
 		</Card>
