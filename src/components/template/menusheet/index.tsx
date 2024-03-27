@@ -11,7 +11,7 @@ const MenuSheet = () => {
 					<LayoutDashboardIcon />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="left" className="w-fit p-0">
+			<SheetContent side="left" className="w-fit p-0 ">
 				<SheetMenuCommand />
 			</SheetContent>
 		</Sheet>

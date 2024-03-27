@@ -1,12 +1,13 @@
+import TableHeadBuilder from "@components/builder/table/head";
+import PaginationBuilder from "@components/builder/table/pagination";
 import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
+import { statusPegawaiTableColumns } from "@tipes/master/status-pegawai";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import { getDataStatusPegawai } from "./action";
-import TableHeadBuilder from "@components/builder/table/head";
-import { statusPegawaiTableColumns } from "@tipes/master/status-pegawai";
 import StatusPegawaiTableBody from "./body";
 
 const StatusPegawaiPage = async ({
@@ -36,13 +37,13 @@ const StatusPegawaiPage = async ({
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
+				
 				<div className="rounded-md border">
 					<Table>
 						<TableHeadBuilder columns={statusPegawaiTableColumns} />
 						<StatusPegawaiTableBody data={data} />
 					</Table>
-					{/* 
-					<StatusPegawaiPagination data={data} /> */}
+					<PaginationBuilder data={data} />
 				</div>
 			</CardContent>
 		</Card>
