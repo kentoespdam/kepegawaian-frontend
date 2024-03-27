@@ -23,24 +23,20 @@ export const BaseDelete = z.object({
 
 export type BaseDelete = z.infer<typeof BaseDelete>;
 
-export const PageableSort = z.object({
-	sorted: z.boolean(),
-	unsorted: z.boolean(),
-	empty: z.boolean(),
-});
+export interface PageableSort {
+	sorted: boolean;
+	unsorted: boolean;
+	empty: boolean;
+}
 
-export type PageableSort = z.infer<typeof PageableSort>;
-
-export const BasePageable = z.object({
-	pageNumber: z.number(),
-	pageSize: z.number(),
-	sort: PageableSort,
-	offset: z.number(),
-	paged: z.boolean(),
-	unpaged: z.boolean(),
-});
-
-export type BasePageable = z.infer<typeof BasePageable>;
+export interface BasePageable {
+	pageNumber: number;
+	pageSize: number;
+	sort: PageableSort;
+	offset: number;
+	paged: boolean;
+	unpaged: boolean;
+}
 
 export interface Pageable<TData> {
 	content: TData[];
@@ -55,15 +51,13 @@ export interface Pageable<TData> {
 	empty: boolean;
 }
 
-export const PageResponse = <T extends z.ZodTypeAny>(schema: T) => {
-	return z.object({
-		status: z.number(),
-		statusText: z.string(),
-		message: z.string(),
-		// data: Pageable(schema),
-		timestamp: z.string(),
-	});
-};
+export interface PageResponse<TData> {
+	status: number;
+	statusText: string;
+	message: string;
+	data: Pageable<TData>;
+	timestamp: string;
+}
 
 export const ESearchType = z.enum(["text", "number", "level"]);
 
@@ -76,3 +70,9 @@ export type CustomColumnDef = BaseColumnDef & {
 	search?: boolean;
 	searchType?: z.infer<typeof ESearchType>;
 };
+
+export const DeleteSchema = z.object({
+	deleteRef: z.string().startsWith("DELETE-", {
+		message: "Input kode tidak sesuai!",
+	}),
+});
