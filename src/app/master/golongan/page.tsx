@@ -1,4 +1,5 @@
 import TableHeadBuilder from "@components/builder/table/head";
+import PaginationBuilder from "@components/builder/table/pagination";
 import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
@@ -6,9 +7,9 @@ import { Table } from "@components/ui/table";
 import { golonganTableColumns } from "@tipes/master/golongan";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
-import GolonganTableBody from "./table-body";
-import GolonganPagination from "./pagination";
 import { getDataGolongan } from "./action";
+import GolonganTableBody from "./body";
+import SearchBuilder from "@components/builder/search";
 
 export const metadata = {
 	title: "Master Golongan",
@@ -37,12 +38,13 @@ const GolonganPage = async ({
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
+				<SearchBuilder columns={golonganTableColumns} />
 				<div className="rounder-md border">
 					<Table>
 						<TableHeadBuilder columns={golonganTableColumns} />
 						<GolonganTableBody data={data} />
 					</Table>
-					<GolonganPagination data={data} />
+					<PaginationBuilder data={data} />
 				</div>
 			</CardContent>
 		</Card>

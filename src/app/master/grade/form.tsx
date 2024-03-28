@@ -12,8 +12,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@components/ui/select";
-import { Grade } from "@tipes/master/grade";
-import { Level } from "@tipes/master/level";
+import type { Grade } from "@tipes/master/grade";
+import type { Level } from "@tipes/master/level";
 import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";

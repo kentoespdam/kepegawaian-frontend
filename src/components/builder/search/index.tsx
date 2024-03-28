@@ -51,26 +51,27 @@ const SearchComponent = ({
 						type="number"
 						onChange={(e) => handleSearch(col.id, e.target.value)}
 						defaultValue={
-							number === null ? "" : number
+							!number ? "" : number
 						}
 					/>
 				</div>
 			)
 		}
-		default:
+		default: {
+			const text = searchParams.get(col.id);
 			return (
 				<div>
 					<Input
 						name={col.id}
 						placeholder={`Search for ${col.label}...`}
+						onChange={(e) => handleSearch(col.id, e.target.value)}
 						defaultValue={
-							searchParams.get(col.id) === null
-								? ""
-								: String(searchParams.get(col.id))
+							!text ? "" : text
 						}
 					/>
 				</div>
 			);
+		}
 	}
 };
 
@@ -100,7 +101,7 @@ const SearchBuilder = ({ columns, levels }: SearchBuilderProps) => {
 			else
 				params.append(k, String(v));
 		router.replace(`${pathname}?${params.toString()}`);
-	}, 300)
+	}, 500)
 
 	const clearSearch = () => {
 		const params = new URLSearchParams();

@@ -1,6 +1,6 @@
 "use server";
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, Pageable } from "@tipes/index";
+import { BaseDelete, type Pageable } from "@tipes/index";
 import { Golongan } from "@tipes/master/golongan";
 import { API_URL } from "@utils/index";
 import axios from "axios";
@@ -14,10 +14,13 @@ export const getDataGolongan = async (
 	try {
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
-		const { data } = await axios.get(
+		const { data, status } = await axios.get(
 			`${API_URL}/master/golongan?${searchParams}`,
 			{ headers: headers },
 		);
+
+		if (status !== 200)
+			throw new Error(data.response.data.message)
 
 		return data.data;
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -53,27 +56,22 @@ export const saveGolongan = async (_prevState: unknown, formData: FormData) => {
 		});
 
 		if (!validate.success)
-			return {
-				status: 500,
-				data: validate.error.message,
-			};
+			return { error: validate.error.flatten().fieldErrors };
+
 		validate.data.id > 0
 			? await axios.put(
-					`${API_URL}/master/golongan/${validate.data.id}`,
-					formData,
-					{ headers: headers },
-			  )
+				`${API_URL}/master/golongan/${validate.data.id}`,
+				formData,
+				{ headers: headers },
+			)
 			: await axios.post(`${API_URL}/master/golongan`, formData, {
-					headers: headers,
-			  });
+				headers: headers,
+			});
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {
 		console.log(err.response.data);
-		return {
-			status: err.response?.status,
-			data: err.response?.data.message,
-		};
+		return { error: err.response.data };
 	}
 
 	revalidateTag("golongan");

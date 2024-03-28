@@ -8,7 +8,7 @@ import { levelTableColumns } from "@tipes/master/level";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getDataLevel } from "./action";
-import LevelTableBody from "./tableBody";
+import LevelTableBody from "./body";
 import SearchBuilder from "@components/builder/search";
 
 export const metadata = {
