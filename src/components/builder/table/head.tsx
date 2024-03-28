@@ -1,5 +1,5 @@
 import { TableHead, TableHeader, TableRow } from "@components/ui/table";
-import { CustomColumnDef } from "@tipes/index";
+import type { CustomColumnDef } from "@tipes/index";
 
 type TableHeadBuilderProps = {
 	columns: CustomColumnDef[];

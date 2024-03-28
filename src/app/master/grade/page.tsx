@@ -1,17 +1,16 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
-import { getDataGrade } from "./action";
-import TooltipBuilder from "@components/builder/tooltip";
-import Link from "next/link";
-import { Button } from "@components/ui/button";
+import SearchBuilder from "@components/builder/search";
 import TableHeadBuilder from "@components/builder/table/head";
+import PaginationBuilder from "@components/builder/table/pagination";
+import TooltipBuilder from "@components/builder/tooltip";
+import { Button } from "@components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
+import { Table } from "@components/ui/table";
 import { gradeTableColumns } from "@tipes/master/grade";
 import { CirclePlusIcon } from "lucide-react";
-import GradePagination from "./pagination";
-import GradeTableBody from "./body";
-import { Table } from "@components/ui/table";
-import SearchBuilder from "@components/builder/search";
+import Link from "next/link";
 import { getListLevel } from "../level/action";
-import PaginationBuilder from "@components/builder/table/pagination";
+import { getDataGrade } from "./action";
+import GradeTableBody from "./body";
 
 export const metadata = {
 	title: "Master Grade",

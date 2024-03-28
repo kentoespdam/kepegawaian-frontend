@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CustomColumnDef } from "..";
+import type { CustomColumnDef } from "..";
 
 export const Pangkat = z.object({
 	id: z.number(),

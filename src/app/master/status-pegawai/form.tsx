@@ -35,7 +35,7 @@ const StatusPegawaiForm = (props: StatusPegawaiFormProps) => {
 
 			<form className="space-y-4 md:space-y-6" action={action}>
 				<div className="grid w-full items-center gap-1.5">
-					<Label>Nama</Label>
+					<Label htmlFor="nama">Nama</Label>
 					<Input
 						id="nama"
 						name="nama"

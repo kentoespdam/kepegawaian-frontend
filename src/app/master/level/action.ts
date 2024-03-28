@@ -26,7 +26,7 @@ export const getDataLevel = async (
 };
 
 export const getListLevel = async (
-	searchParams: string,
+	searchParams?: string,
 ): Promise<Level[] | null> => {
 	try {
 		const cookieList = cookies();

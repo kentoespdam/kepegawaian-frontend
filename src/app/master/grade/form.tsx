@@ -43,7 +43,7 @@ const GradeFormComponent = ({
 			<form className="space-y-4" action={action}>
 				<div className="grid w-full items-center gap-1.5">
 					<Label htmlFor="levelId">Level</Label>
-					<Select name="levelId" defaultValue={String(data?.level.id)}>
+					<Select name="levelId" defaultValue={data ? String(data.level.id) : ""}>
 						<SelectTrigger id="levelId" aria-required="true">
 							<SelectValue placeholder="Select Level" aria-required="true" />
 						</SelectTrigger>

@@ -67,7 +67,7 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                     </Select>
                 </div>
                 <div className="text-sm">
-                    {number + 1}-{numberOfElements} of {totalElements}
+                    {numberOfElements > 0 ? number + 1 : number}-{numberOfElements} of {totalElements}
                 </div>
                 <div>
                     <Pagination>
