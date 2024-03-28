@@ -11,6 +11,7 @@ import GradeTableBody from "./body";
 import { Table } from "@components/ui/table";
 import SearchBuilder from "@components/builder/search";
 import { getListLevel } from "../level/action";
+import PaginationBuilder from "@components/builder/table/pagination";
 
 export const metadata = {
 	title: "Master Grade",
@@ -49,7 +50,7 @@ const GradePage = async ({
 						<TableHeadBuilder columns={gradeTableColumns} />
 						<GradeTableBody data={data} />
 					</Table>
-					<GradePagination data={data} />
+					<PaginationBuilder data={data} />
 				</div>
 			</CardContent>
 		</Card>

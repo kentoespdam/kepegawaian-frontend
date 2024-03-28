@@ -57,7 +57,6 @@ export const saveStatusPegawai = async (
 			id: Number(formData.get("id")),
 			nama: formData.get("nama"),
 		});
-		console.log(formData.get("nama"))
 
 		if (!validate.success)
 			return { error: validate.error.flatten().fieldErrors };

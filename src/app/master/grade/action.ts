@@ -1,8 +1,8 @@
 "use server";
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, Pageable } from "@tipes/index";
-import { Grade, GradeForm, GradeFormSchema } from "@tipes/master/grade";
+import { BaseDelete, type Pageable } from "@tipes/index";
+import { type Grade, GradeForm } from "@tipes/master/grade";
 import { API_URL } from "@utils/index";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
@@ -12,19 +12,23 @@ import { redirect } from "next/navigation";
 export const getDataGrade = async (
 	searchParams: string,
 ): Promise<Pageable<Grade> | null> => {
+
 	try {
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
-		const { data } = await axios.get(
+		const { data, status } = await axios.get(
 			`${API_URL}/master/grade?${searchParams}`,
 			{ headers: headers },
 		);
 
+		if (status !== 200)
+			throw new Error(data.response.data.message)
+
 		return data.data;
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	} catch (err: any) {
-		console.log(err.response.data);
-		return null;
+	} catch (e: any) {
+		console.log(e.response.data.message)
+		return null
 	}
 };
 
@@ -61,13 +65,13 @@ export const saveGrade = async (_prevState: unknown, formData: FormData) => {
 
 		validate.data.id
 			? await axios.put(
-					`${API_URL}/master/grade/${validate.data.id}`,
-					formData,
-					{ headers: headers },
-			  )
+				`${API_URL}/master/grade/${validate.data.id}`,
+				formData,
+				{ headers: headers },
+			)
 			: await axios.post(`${API_URL}/master/grade`, formData, {
-					headers: headers,
-			  });
+				headers: headers,
+			});
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {

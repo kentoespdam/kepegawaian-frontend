@@ -69,9 +69,8 @@ export const saveLevel = async (_prevState: unknown, formData: FormData) => {
 		});
 
 		if (!validate.success)
-			return {
-				error: validate.error.message,
-			};
+			return { error: validate.error.flatten().fieldErrors };
+
 		validate.data.id > 0
 			? await axios.put(
 				`${API_URL}/master/level/${validate.data.id}`,

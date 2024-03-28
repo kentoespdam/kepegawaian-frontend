@@ -1,4 +1,3 @@
-"use client";
 import {
 	Select,
 	SelectContent,
@@ -10,16 +9,19 @@ import type { Level } from "@tipes/master/level";
 
 type LevelSearchBuilderProps = {
 	levels: Level[];
-	levelId: string;
+	levelId: string | null;
+	handleSearch: (k: string, v: unknown) => void
 };
 
-const LevelSearchBuilder = ({ levels, levelId }: LevelSearchBuilderProps) => {
+const LevelSearchBuilder = ({ levels, levelId, handleSearch }: LevelSearchBuilderProps) => {
+	const currentId = !levelId ? "kosong" : levelId
 	return (
-		<Select name="levelId" defaultValue={levelId}>
+		<Select name="levelId" value={currentId} defaultValue={currentId} onValueChange={(v) => handleSearch("levelId", v)}>
 			<SelectTrigger id="levelId" aria-required="true" className="min-w-full">
-				<SelectValue placeholder="Select Level" aria-required="true" />
+				<SelectValue placeholder="Select Level"/>
 			</SelectTrigger>
 			<SelectContent>
+				<SelectItem value="kosong">Select Level</SelectItem>
 				{levels?.map((level) => (
 					<SelectItem key={level.id} value={String(level.id)}>
 						{level.nama}

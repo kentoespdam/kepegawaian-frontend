@@ -1,9 +1,7 @@
 "use client";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import { Tooltip, TooltipProvider } from "@components/ui/tooltip";
 import { ResetIcon } from "@radix-ui/react-icons";
-import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import type { CustomColumnDef } from "@tipes/index";
 import type { Level } from "@tipes/master/level";
 import {
@@ -12,33 +10,52 @@ import {
 	useSearchParams,
 	type ReadonlyURLSearchParams,
 } from "next/navigation";
-import LevelSearchBuilder from "./levelSearch";
-import { SearchIcon } from "lucide-react";
+import { useDebouncedCallback } from "use-debounce";
 import TooltipBuilder from "../tooltip";
+import LevelSearchBuilder from "./levelSearch";
 
 type SearchComponentProps = {
 	col: CustomColumnDef;
 	searchParams: ReadonlyURLSearchParams;
+	handleSearch: (k: string, v: unknown) => void
 	levels?: Level[];
 };
 const SearchComponent = ({
 	col,
 	searchParams,
+	handleSearch,
 	levels,
 }: SearchComponentProps) => {
 	if (!col.search) return null;
 
 	switch (col.searchType) {
 		case "level": {
-			const levelId = searchParams.get("levelId");
+			const levelId = searchParams.get(col.id);
 			return !levels ? null : (
 				<div className="w-52">
 					<LevelSearchBuilder
 						levels={levels}
-						levelId={levelId === null ? "" : levelId}
+						levelId={levelId}
+						handleSearch={handleSearch}
 					/>
 				</div>
 			);
+		}
+		case "number": {
+			const number = searchParams.get(col.id);
+			return (
+				<div>
+					<Input
+						name={col.id}
+						placeholder={`Search for ${col.label}...`}
+						type="number"
+						onChange={(e) => handleSearch(col.id, e.target.value)}
+						defaultValue={
+							number === null ? "" : number
+						}
+					/>
+				</div>
+			)
 		}
 		default:
 			return (
@@ -68,17 +85,22 @@ const SearchBuilder = ({ columns, levels }: SearchBuilderProps) => {
 
 	const doSearch = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const formData = new FormData(e.currentTarget);
-		const formParams = [...formData.entries()]
-			.map((e) =>
-				e[1] !== ""
-					? `${encodeURIComponent(e[0])}=${encodeURIComponent(String(e[1]))}`
-					: null,
-			)
-			.join("&");
-		const params = new URLSearchParams(formParams);
-		router.push(`${pathname}?${params.toString()}`);
 	};
+
+	const handleSearch = useDebouncedCallback((k: string, v: unknown) => {
+		const params = new URLSearchParams(searchParams);
+		if (v === "kosong" || v === "")
+			params.delete(k)
+		else
+			if (params.has(k))
+				if (v === "kosong" || v === "")
+					params.delete(k)
+				else
+					params.set(k, String(v))
+			else
+				params.append(k, String(v));
+		router.replace(`${pathname}?${params.toString()}`);
+	}, 300)
 
 	const clearSearch = () => {
 		const params = new URLSearchParams();
@@ -94,16 +116,13 @@ const SearchBuilder = ({ columns, levels }: SearchBuilderProps) => {
 						col={column}
 						searchParams={searchParams}
 						levels={levels}
+						handleSearch={handleSearch}
 					/>
 				))}
+
 				<TooltipBuilder text="Clear Search" className="bg-destructive text-destructive-foreground">
 					<Button variant="outline" type="reset" size="icon" onClick={clearSearch}>
 						<ResetIcon className="text-destructive" />
-					</Button>
-				</TooltipBuilder>
-				<TooltipBuilder text="Search Data">
-					<Button variant="outline" type="submit" size="icon">
-						<SearchIcon className="w-4 h-4 text-primary" />
 					</Button>
 				</TooltipBuilder>
 			</div>

@@ -25,12 +25,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type PaginationBuilderProps = {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    data: Pageable<any>;
+    data: Pageable<any> | null;
 };
 const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
+
+    const number = data ? data.number : 0
+    const numberOfElements = data ? data.numberOfElements : 0
+    const totalElements = data ? data.totalElements : 0
+    const totalPages = data ? data.totalPages : 0
 
     const handleSearch = (k: string, v: unknown) => {
         if (k === "size") {
@@ -51,7 +56,7 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                     <div className="text-nowrap">Row per page</div>
                     <Select onValueChange={(v) => handleSearch("size", v)}>
                         <SelectTrigger className="border-0">
-                            <SelectValue placeholder={data.size} />
+                            <SelectValue placeholder={data ? data.size : 10} />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="10">10</SelectItem>
@@ -62,7 +67,7 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                     </Select>
                 </div>
                 <div className="text-sm">
-                    {data.number + 1}-{data.numberOfElements} of {data.totalElements}
+                    {number + 1}-{numberOfElements} of {totalElements}
                 </div>
                 <div>
                     <Pagination>
@@ -72,7 +77,7 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleSearch("page", 0)}
-                                    disabled={data.first}
+                                    disabled={data?.first}
                                 >
                                     <ChevronFirstIcon className="h-5 w-5" />
                                 </Button>
@@ -81,8 +86,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", data.number - 1)}
-                                    disabled={data.first}
+                                    onClick={() => handleSearch("page", number - 1)}
+                                    disabled={data?.first}
                                 >
                                     <ChevronLeftIcon className="h-5 w-5" />
                                 </Button>
@@ -91,8 +96,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", data.number + 1)}
-                                    disabled={data.last}
+                                    onClick={() => handleSearch("page", number + 1)}
+                                    disabled={data?.last}
                                 >
                                     <ChevronRightIcon className="h-5 w-5" />
                                 </Button>
@@ -101,8 +106,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", data.totalPages)}
-                                    disabled={data.last}
+                                    onClick={() => handleSearch("page", totalPages)}
+                                    disabled={data?.last}
                                 >
                                     <ChevronLastIcon className="h-5 w-5" />
                                 </Button>

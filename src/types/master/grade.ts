@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Level } from "./level";
-import { CustomColumnDef } from "..";
+import type { CustomColumnDef } from "..";
 
 export const Grade = z.object({
 	id: z.number(),
@@ -23,7 +23,7 @@ export type GradeForm = z.infer<typeof GradeForm>;
 export const gradeTableColumns: CustomColumnDef[] = [
 	{ id: "urut", label: "No" },
 	{ id: "levelId", label: "Level", search: true, searchType: "level" },
-	{ id: "grade", label: "Grade", search: true, searchType: "text" },
+	{ id: "grade", label: "Grade", search: true, searchType: "number" },
 	{ id: "tukin", label: "Tukin" },
 	{ id: "aksi", label: "Aksi" },
 ];
