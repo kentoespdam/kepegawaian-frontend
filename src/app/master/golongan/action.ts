@@ -30,6 +30,28 @@ export const getDataGolongan = async (
 	}
 };
 
+export const getListGolongan = async (
+	searchParams?: string,
+): Promise<Golongan[] | null> => {
+	try {
+		const cookieList = cookies();
+		const headers = setAuthorizeHeader(cookieList);
+		const { data, status } = await axios.get(
+			`${API_URL}/master/golongan/list?${searchParams}`,
+			{ headers: headers },
+		);
+
+		if (status !== 200)
+			throw new Error(data.response.data.message)
+
+		return data.data;
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	} catch (err: any) {
+		console.log(err.response.data);
+		return null;
+	}
+};
+
 export const getGolonganById = async (id: number) => {
 	try {
 		const cookieList = cookies();

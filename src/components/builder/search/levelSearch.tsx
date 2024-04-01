@@ -5,23 +5,26 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@components/ui/select";
+import type { CustomColumnDef } from "@tipes/index";
 import type { Level } from "@tipes/master/level";
 
 type LevelSearchBuilderProps = {
-	levels: Level[];
-	levelId: string | null;
+	col: CustomColumnDef
+	list: Level[];
+	id: string | null;
 	handleSearch: (k: string, v: unknown) => void
 };
 
-const LevelSearchBuilder = ({ levels, levelId, handleSearch }: LevelSearchBuilderProps) => {
-	const currentId = !levelId ? "kosong" : levelId
+const LevelSearchBuilder = ({ col, list: levels, id, handleSearch }: LevelSearchBuilderProps) => {
+	const currentId = !id ? "kosong" : id
+	
 	return (
-		<Select name="levelId" value={currentId} defaultValue={currentId} onValueChange={(v) => handleSearch("levelId", v)}>
-			<SelectTrigger id="levelId" aria-required="true" className="min-w-full">
-				<SelectValue placeholder="Select Level"/>
+		<Select name={col.id} value={currentId} defaultValue={currentId} onValueChange={(v) => handleSearch(col.id, v)}>
+			<SelectTrigger id={col.id} aria-required="true" className="min-w-full">
+				<SelectValue placeholder={`Search For ${col.label}`} />
 			</SelectTrigger>
 			<SelectContent>
-				<SelectItem value="kosong">Select Level</SelectItem>
+				<SelectItem value="kosong">{`Search For ${col.label}`}</SelectItem>
 				{levels?.map((level) => (
 					<SelectItem key={level.id} value={String(level.id)}>
 						{level.nama}

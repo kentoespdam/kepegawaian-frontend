@@ -1,6 +1,6 @@
 import { USER_ROLE, UserRole } from "@tipes/index";
-import { BarcodeIcon, BoxesIcon, GitCompareArrowsIcon, HandshakeIcon, HomeIcon, NavigationIcon, RadicalIcon, ShovelIcon, SignalIcon } from "lucide-react";
-import React from "react";
+import { BarcodeIcon, BoxesIcon, GitCompareArrowsIcon, HomeIcon, NavigationIcon, RadicalIcon, ShovelIcon, SignalIcon } from "lucide-react";
+import type React from "react";
 import { z } from "zod";
 
 export type ChildrenNode = {
@@ -49,11 +49,6 @@ export const menus: IMenu[] = [
         path: "/master/status-pegawai",
         name: "Status Pegawai",
         icon: <BoxesIcon className={defaultIconClassName} />,
-        role: USER_ROLE.ADMIN,
-      }, {
-        path: "/master/pangkat",
-        name: "Pangkat",
-        icon: <HandshakeIcon className={defaultIconClassName} />,
         role: USER_ROLE.ADMIN,
       }, {
         path: "/master/golongan",
