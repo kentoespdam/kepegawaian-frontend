@@ -14,7 +14,7 @@ import {
     SelectValue,
 } from "@components/ui/select";
 import { Separator } from "@components/ui/separator";
-import type { Pageable } from "@tipes/index";
+import type { Pageable } from "@_types/index";
 import {
     ChevronFirstIcon,
     ChevronLastIcon,
@@ -24,29 +24,32 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type PaginationBuilderProps = {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    data: Pageable<any> | null;
+    data: Pageable<unknown> | null;
 };
+
 const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
 
-    const number = data ? data.number : 0
-    const numberOfElements = data ? data.numberOfElements : 0
-    const totalElements = data ? data.totalElements : 0
-    const totalPages = data ? data.totalPages : 0
-
-    const handleSearch = (k: string, v: unknown) => {
-        if (k === "size") {
-            router.push(`${pathname}?size=${v}`);
-            return;
-        }
+    const handleSearch = (key: string, value: unknown) => {
         const params = new URLSearchParams(searchParams);
-        params.has(k) ? params.set(k, String(v)) : params.append(k, String(v));
-
+        params.has(key) ? params.set(key, String(value)) : params.append(key, String(value));
         router.push(`${pathname}?${params.toString()}`);
     };
+
+    const navigateToPage = (pageNumber: number) => {
+        handleSearch("page", pageNumber);
+    };
+
+    const {
+        number = 0,
+        numberOfElements = 0,
+        totalElements = 0,
+        totalPages = 0,
+        first = true,
+        last = true
+    } = data ?? {};
 
     return (
         <>
@@ -54,9 +57,9 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
             <div className="flex flex-row justify-end items-center px-2 gap-2">
                 <div className="flex flex-row text-sm items-center gap-2">
                     <div className="text-nowrap">Row per page</div>
-                    <Select onValueChange={(v) => handleSearch("size", v)}>
+                    <Select onValueChange={(value) => handleSearch("size", value)}>
                         <SelectTrigger className="border-0">
-                            <SelectValue placeholder={data ? data.size : 10} />
+                            <SelectValue placeholder={data?.size ?? 10} />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="10">10</SelectItem>
@@ -76,8 +79,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", 0)}
-                                    disabled={data?.first}
+                                    onClick={() => navigateToPage(0)}
+                                    disabled={first}
                                 >
                                     <ChevronFirstIcon className="h-5 w-5" />
                                 </Button>
@@ -86,8 +89,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", number - 1)}
-                                    disabled={data?.first}
+                                    onClick={() => navigateToPage(number - 1)}
+                                    disabled={first}
                                 >
                                     <ChevronLeftIcon className="h-5 w-5" />
                                 </Button>
@@ -96,8 +99,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", number + 1)}
-                                    disabled={data?.last}
+                                    onClick={() => navigateToPage(number + 1)}
+                                    disabled={last}
                                 >
                                     <ChevronRightIcon className="h-5 w-5" />
                                 </Button>
@@ -106,8 +109,8 @@ const PaginationBuilder = ({ data }: PaginationBuilderProps) => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleSearch("page", totalPages)}
-                                    disabled={data?.last}
+                                    onClick={() => navigateToPage(totalPages)}
+                                    disabled={last}
                                 >
                                     <ChevronLastIcon className="h-5 w-5" />
                                 </Button>

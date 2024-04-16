@@ -1,7 +1,7 @@
 "use server";
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, type Pageable } from "@tipes/index";
-import { Golongan } from "@tipes/master/golongan";
+import { BaseDelete, type Pageable } from "@_types/index";
+import { Golongan } from "@_types/master/golongan";
 import { API_URL } from "@utils/index";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
@@ -25,7 +25,7 @@ export const getDataGolongan = async (
 		return data.data;
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {
-		console.log(err.response.data);
+		console.log(err.response.data.message);
 		return null;
 	}
 };

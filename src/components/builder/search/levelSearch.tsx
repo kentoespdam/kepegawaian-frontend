@@ -5,8 +5,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@components/ui/select";
-import type { CustomColumnDef } from "@tipes/index";
-import type { Level } from "@tipes/master/level";
+import type { CustomColumnDef } from "@_types/index";
+import type { Level } from "@_types/master/level";
 
 type LevelSearchBuilderProps = {
 	col: CustomColumnDef

@@ -1,8 +1,8 @@
 "use server"
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, type Pageable } from "@tipes/index";
-import { JabatanSchema, type Jabatan } from "@tipes/master/jabatan";
+import { BaseDelete, type Pageable } from "@_types/index";
+import { JabatanSchema, type Jabatan } from "@_types/master/jabatan";
 import { API_URL } from "@utils/index";
 import axios from "axios";
 import { revalidateTag } from "next/cache";

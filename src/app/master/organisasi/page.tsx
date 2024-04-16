@@ -5,11 +5,12 @@ import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { organisasiTableColumns } from "@tipes/master/organisasi";
+import { organisasiTableColumns } from "@_types/master/organisasi";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
-import { getDataOrganisasi } from "./action";
+import { getDataOrganisasi, getListOrganisasi } from "./action";
 import OrganisasiTableBody from "./body";
+import { getListLevel } from "../level/action";
 
 export const metadata = {
     title: "Master Organisasi"
@@ -17,6 +18,8 @@ export const metadata = {
 const OrganisasiPage = async ({ searchParams }: { searchParams: Record<string, string> }) => {
     const urlSearchParams = new URLSearchParams(searchParams)
     const data = await getDataOrganisasi(urlSearchParams.toString())
+    const organisasis = await getListOrganisasi()
+    const levels = await getListLevel()
 
     return (
         <Card>
@@ -35,7 +38,8 @@ const OrganisasiPage = async ({ searchParams }: { searchParams: Record<string, s
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <SearchBuilder columns={organisasiTableColumns} />
+                <SearchBuilder columns={organisasiTableColumns}
+                    organisasis={organisasis ?? []} levels={levels ?? []} />
                 <div className="rounded-md border">
                     <Table>
                         <TableHeadBuilder columns={organisasiTableColumns} />

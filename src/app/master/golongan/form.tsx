@@ -6,7 +6,7 @@ import { FormItem } from "@components/ui/form";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { LoadingButton } from "@components/ui/loading-button";
-import type { Golongan } from "@tipes/master/golongan";
+import type { Golongan } from "@_types/master/golongan";
 import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";

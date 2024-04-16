@@ -1,5 +1,5 @@
 "use client"
-import type { StatusPegawai } from "@tipes/master/status-pegawai";
+import type { StatusPegawai } from "@_types/master/status-pegawai";
 import { useFormState } from "react-dom";
 import { saveStatusPegawai } from "./action";
 import { Label } from "@components/ui/label";

@@ -1,11 +1,11 @@
 "use server";
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { DeleteSchema, type Pageable } from "@tipes/index";
+import { DeleteSchema, type Pageable } from "@_types/index";
 import {
 	StatusPegawaiSchema,
 	type StatusPegawai,
-} from "@tipes/master/status-pegawai";
+} from "@_types/master/status-pegawai";
 import { API_URL } from "@utils/index";
 import axios, { type AxiosError } from "axios";
 import { revalidatePath, revalidateTag } from "next/cache";

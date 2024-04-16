@@ -1,20 +1,20 @@
 "use client";
 
 import AlertBuilder from "@components/builder/alert";
-import { LoadingButton } from "@components/ui/loading-button";
 import { Input } from "@components/ui/input";
+import { LoadingButton } from "@components/ui/loading-button";
 import { redirect } from "next/navigation";
 import { useFormState } from "react-dom";
 import { doLogin } from "./action";
 
 const Login = () => {
 	const [state, action] = useFormState(doLogin, null);
-	if (state?.isAuth) redirect(`${state.callbackUrl}`);
+	if (state?.isAuth) redirect(decodeURIComponent(state.callbackUrl));
 
 	return (
 		<>
 			{state && !state.isAuth ? (
-				<AlertBuilder variant="error" message={state.message} />
+				<AlertBuilder variant="destructive" message={state.message} />
 			) : state !== null ? (
 				<AlertBuilder message={JSON.stringify(state.message)} />
 			) : null}

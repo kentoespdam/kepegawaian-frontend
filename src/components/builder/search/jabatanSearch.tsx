@@ -1,6 +1,6 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
-import type { CustomColumnDef } from "@tipes/index";
-import type { Jabatan } from "@tipes/master/jabatan";
+import type { CustomColumnDef } from "@_types/index";
+import type { Jabatan } from "@_types/master/jabatan";
 
 type JabatanSearchBuilderProps = {
     col: CustomColumnDef

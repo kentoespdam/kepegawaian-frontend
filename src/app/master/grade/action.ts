@@ -1,8 +1,8 @@
 "use server";
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, type Pageable } from "@tipes/index";
-import { type Grade, GradeForm } from "@tipes/master/grade";
+import { BaseDelete, type Pageable } from "@_types/index";
+import { type Grade, GradeForm } from "@_types/master/grade";
 import { API_URL } from "@utils/index";
 import axios from "axios";
 import { revalidateTag } from "next/cache";

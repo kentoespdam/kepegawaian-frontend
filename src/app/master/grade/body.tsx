@@ -2,8 +2,8 @@ import ButtonDeleteBuilder from "@components/builder/button/delete";
 import ButtonEditBuilder from "@components/builder/button/edit";
 import { TableBody, TableCell, TableRow } from "@components/ui/table";
 import { rupiah } from "@helpers/number";
-import type { Pageable } from "@tipes/index";
-import { gradeTableColumns, type Grade } from "@tipes/master/grade";
+import type { Pageable } from "@_types/index";
+import { gradeTableColumns, type Grade } from "@_types/master/grade";
 import { hapus } from "./action";
 
 const GradeTableBody = ({ data }: { data: Pageable<Grade> | null }) => {

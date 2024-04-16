@@ -1,8 +1,8 @@
 import ButtonDeleteBuilder from "@components/builder/button/delete";
 import ButtonEditBuilder from "@components/builder/button/edit";
 import { TableBody, TableCell, TableRow } from "@components/ui/table";
-import type { Pageable } from "@tipes/index";
-import { profesiTableColumns, type Profesi } from "@tipes/master/profesi";
+import type { Pageable } from "@_types/index";
+import { profesiTableColumns, type Profesi } from "@_types/master/profesi";
 import { hapus } from "./action";
 
 type ProfesiTableBodyProps = {

@@ -1,36 +1,35 @@
 import { Alert, AlertDescription, AlertTitle } from "@components/ui/alert";
 
-const alertVariant = (variant?: string) => {
-	switch (variant) {
-		case "error":
-			return "bg-destructive text-destructive-foreground";
-		case "warning":
-			return "bg-warning text-warning-foreground";
-		default:
-			return "bg-primary text-primary-foreground";
-	}
-};
-type AlertBuilderProps = {
+type AlertVariant = "warning" | "primary" | "destructive";
+
+type AlertProps = {
 	message: string | string[];
-	variant?: "error" | "success" | "warning" | "destructive";
+	variant?: AlertVariant;
 	untitled?: boolean;
 };
-const AlertBuilder = (props: AlertBuilderProps) => {
+
+const defaultVariant: AlertVariant = "primary";
+
+const variantClassMap: Record<AlertVariant, string> = {
+	warning: "bg-warning text-warning-foreground",
+	primary: "bg-primary text-primary-foreground",
+	destructive: "bg-destructive text-destructive-foreground",
+};
+
+const AlertBuilder = ({
+	message,
+	variant = defaultVariant,
+	untitled = false,
+}: AlertProps) => {
+	const variantClass = variantClassMap[variant];
+
 	return (
-		<Alert
-			variant={props.variant === "destructive" ? "destructive" : "default"}
-			className={
-				props.variant !== "destructive" ? alertVariant(props.variant) : ""
-			}
-		>
-			{props.untitled ? null : (
-				<AlertTitle className="uppercase">
-					{props.variant ? props.variant : "success"}
-				</AlertTitle>
-			)}
-			<AlertDescription>{props.message}</AlertDescription>
+		<Alert variant={variant} className={untitled ? "" : variantClass}>
+			{!untitled && <AlertTitle className="uppercase">{variant}</AlertTitle>}
+			<AlertDescription>{message}</AlertDescription>
 		</Alert>
 	);
 };
 
 export default AlertBuilder;
+

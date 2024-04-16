@@ -1,24 +1,21 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@components/ui/tooltip";
 import { cn } from "@utils/index";
 
-type TooltipBuilderProps = {
-    text: string
-    children: React.ReactNode
-    className?: string
-}
-const TooltipBuilder = (props: TooltipBuilderProps) => {
-    return (
-        <TooltipProvider delayDuration={0}>
-            <Tooltip delayDuration={0}>
-                <TooltipTrigger asChild>
-                    {props.children}
-                </TooltipTrigger>
-                <TooltipContent className={cn(props.className)}>
-                    <p>{props.text}</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-    );
-}
+type TooltipProps = {
+    text: string;
+    children: React.ReactNode;
+    className?: string;
+};
 
-export default TooltipBuilder;
+const TooltipBuilder = ({ text, children, className }: TooltipProps) => (
+    <TooltipProvider delayDuration={0}>
+        <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>{children}</TooltipTrigger>
+            <TooltipContent className={cn(className)}>
+                <p>{text}</p>
+            </TooltipContent>
+        </Tooltip>
+    </TooltipProvider>
+);
+
+export default TooltipBuilder 

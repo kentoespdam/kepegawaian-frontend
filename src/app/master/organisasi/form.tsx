@@ -1,6 +1,6 @@
 "use client"
 
-import type { Organisasi } from "@tipes/master/organisasi";
+import type { Organisasi } from "@_types/master/organisasi";
 import { useFormState } from "react-dom";
 import { saveOrganisasi } from "./action";
 import { Label } from "@components/ui/label";

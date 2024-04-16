@@ -7,7 +7,7 @@ import {
 	CommandList,
 } from "@components/ui/command";
 import { SheetClose } from "@components/ui/sheet";
-import { IMenu, menus } from "@lib/index";
+import { menus, type IMenu } from "@lib/index";
 import Link from "next/link";
 
 type MenuListBuilderProps = {
@@ -36,9 +36,9 @@ const MenulistBuilder = (props: MenuListBuilderProps) => {
 
 const SheetMenuCommand = () => {
 	return (
-		<Command>
+		<Command className="h-full">
 			<CommandInput placeholder="Type to search..." />
-			<CommandList className="min-h-full">
+			<CommandList className="h-screen">
 				<CommandEmpty>No results found.</CommandEmpty>
 				{menus.map((menu) => (
 					<MenulistBuilder menu={menu} key={`${menu.name}-${menu.path}`} />

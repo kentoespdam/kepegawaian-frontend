@@ -1,4 +1,4 @@
-import { User } from "@tipes/user";
+import type { User } from "@_types/user";
 import { cryptr } from "@utils/index";
 import { create } from "zustand";
 

@@ -5,7 +5,7 @@ import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { gradeTableColumns } from "@tipes/master/grade";
+import { gradeTableColumns } from "@_types/master/grade";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getListLevel } from "../level/action";

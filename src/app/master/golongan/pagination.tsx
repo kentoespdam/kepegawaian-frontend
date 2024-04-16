@@ -14,8 +14,8 @@ import {
 	SelectValue,
 } from "@components/ui/select";
 import { Separator } from "@components/ui/separator";
-import { Pageable } from "@tipes/index";
-import { Golongan } from "@tipes/master/golongan";
+import { Pageable } from "@_types/index";
+import { Golongan } from "@_types/master/golongan";
 import {
 	ChevronFirstIcon,
 	ChevronLastIcon,

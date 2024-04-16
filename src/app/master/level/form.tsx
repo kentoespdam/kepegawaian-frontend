@@ -5,7 +5,7 @@ import { buttonVariants } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { LoadingButton } from "@components/ui/loading-button";
-import type { Level } from "@tipes/master/level";
+import type { Level } from "@_types/master/level";
 import { cn } from "@utils/index";
 import { SaveIcon } from "lucide-react";
 import Link from "next/link";

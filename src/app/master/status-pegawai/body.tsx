@@ -1,8 +1,8 @@
 import ButtonDeleteBuilder from "@components/builder/button/delete";
 import ButtonEditBuilder from "@components/builder/button/edit";
 import { TableBody, TableCell, TableRow } from "@components/ui/table";
-import type { Pageable } from "@tipes/index";
-import { type StatusPegawai, statusPegawaiTableColumns } from "@tipes/master/status-pegawai";
+import type { Pageable } from "@_types/index";
+import { type StatusPegawai, statusPegawaiTableColumns } from "@_types/master/status-pegawai";
 import { hapus } from "./action";
 
 type StatusPegawaiTableBodyProps = {

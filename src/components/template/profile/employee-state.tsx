@@ -1,22 +1,24 @@
 "use client";
+import type { Employee } from "@_types/employee";
+import type { User } from "@_types/user";
 import { useSessionStore } from "@store/session";
-import { Employee } from "@tipes/employee";
-import { User } from "@tipes/user";
 import { useEffect } from "react";
 
-type EmployeeStateComponentProps = {
-  userAccount: User;
-  employee?: Employee | null;
-};
-const EmployeeStateComponent = (props: EmployeeStateComponentProps) => {
-  const setUser = useSessionStore((state) => state.setUser);
+interface EmployeeStateComponentProps {
+	userAccount: User;
+	employee?: Employee | null;
+}
 
-  useEffect(() => {
-    setUser(props.userAccount);
-    return () => console.log("effect finish");
-  }, [props.userAccount, setUser]);
+const EmployeeStateComponent: React.FC<EmployeeStateComponentProps> = ({
+	userAccount,
+}) => {
+	const setUser = useSessionStore((state) => state.setUser);
 
-  return null;
+	useEffect(() => {
+		setUser(userAccount);
+	}, [userAccount, setUser]);
+
+	return null;
 };
 
 export default EmployeeStateComponent;

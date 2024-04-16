@@ -36,7 +36,7 @@
       "@store/*": [
         "./src/store/*"
       ],
-      "@tipes/*": [
+      "@_types/*": [
         "./src/types/*"
       ],
       "@provider/*": [
@@ -47,7 +47,7 @@
       ],
       "@app/*":[
         "./src/app/*"
-      ],
+      ]
     }
   },
   "include": [

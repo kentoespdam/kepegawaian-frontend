@@ -1,4 +1,4 @@
-import { ChildrenNode } from "@lib/index";
+import type { ChildrenNode } from "@lib/index";
 
 const ContentComponent = ({ children }: ChildrenNode) => {
     return (

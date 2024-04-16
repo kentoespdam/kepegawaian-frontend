@@ -4,7 +4,7 @@ import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { statusPegawaiTableColumns } from "@tipes/master/status-pegawai";
+import { statusPegawaiTableColumns } from "@_types/master/status-pegawai";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import { getDataStatusPegawai } from "./action";

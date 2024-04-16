@@ -4,7 +4,7 @@ import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { golonganTableColumns } from "@tipes/master/golongan";
+import { golonganTableColumns } from "@_types/master/golongan";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getDataGolongan } from "./action";

@@ -120,7 +120,8 @@ export const extractTokenData = (token: string, part?: number) => {
 export const getExpToken = (token: string) => {
 	if (!token) return 0;
 	const tokenBody = extractTokenData(token);
-	return tokenBody.exp * 1000 - 60000;
+	return tokenBody.exp * 1000;
+	// return tokenBody.exp;
 };
 
 export const appwriteHeader = (

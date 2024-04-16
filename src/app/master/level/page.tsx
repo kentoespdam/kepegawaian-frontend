@@ -1,15 +1,15 @@
+import { levelTableColumns } from "@_types/master/level";
+import SearchBuilder from "@components/builder/search";
 import TableHeadBuilder from "@components/builder/table/head";
 import PaginationBuilder from "@components/builder/table/pagination";
 import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { levelTableColumns } from "@tipes/master/level";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { getDataLevel } from "./action";
 import LevelTableBody from "./body";
-import SearchBuilder from "@components/builder/search";
 
 export const metadata = {
 	title: "Master Level",

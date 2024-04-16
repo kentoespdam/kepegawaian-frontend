@@ -5,7 +5,7 @@ import TooltipBuilder from "@components/builder/tooltip";
 import { Button } from "@components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { Table } from "@components/ui/table";
-import { profesiTableColumns } from "@tipes/master/profesi";
+import { profesiTableColumns } from "@_types/master/profesi";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import { getListLevel } from "../level/action";

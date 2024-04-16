@@ -10,6 +10,10 @@ const nextConfig = {
       },
     ],
   },
+  i18n:{
+    locales:["id_ID"],
+    defaultLocale:"id_ID"
+  }
 };
 
 export default nextConfig;

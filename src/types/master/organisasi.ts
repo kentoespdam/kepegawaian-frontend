@@ -30,13 +30,11 @@ export const organisasiTableColumns: CustomColumnDef[] = [
         id: "parentId",
         label: "Organisasi Induk",
         search: true,
-        searchType: "number"
+        searchType: "organisasi"
     },
     {
         id: "levelOrganisasi",
-        label: "Level Organisasi",
-        search: true,
-        searchType: "number"
+        label: "Level Organisasi"
     },
     {
         id: "aksi",

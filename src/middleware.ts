@@ -7,57 +7,37 @@ import {
 	newHostname,
 } from "@helpers/index";
 import { baseAuthUrl, sessionNames } from "@utils/index";
-import {
-	RequestCookie,
-	RequestCookies,
-} from "next/dist/compiled/@edge-runtime/cookies";
-import { NextRequest, NextResponse } from "next/server";
+import type { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
 	const response = NextResponse.next();
-	const host = req.nextUrl.host.split(":")[0];
-	const currentPath = req.nextUrl.pathname;
-	const currentHref = req.nextUrl.href;
-	const currentOrigin = req.nextUrl.origin;
+	const {
+		host,
+		pathname: currentPath,
+		href: currentHref,
+		origin: currentOrigin,
+	} = req.nextUrl;
 	const cookies = req.cookies;
 
-	if (!isHasSessionCookie(cookies) && !currentPath.startsWith("/auth"))
-		return NextResponse.redirect(
-			new URL(
-				`/auth?callbackUrl=${encodeURIComponent(currentHref)}`,
-				currentOrigin,
-			),
-			{
-				headers: {
-					"set-cookie": `callback_url=${encodeURIComponent(currentHref)}`,
-				},
-			},
-		);
+	if (!isHasSessionCookie(cookies) && !currentPath.startsWith("/auth")) {
+		return redirectAuth(currentHref, currentOrigin);
+	}
 
 	const activeSession = await isHasAuthSession(cookies);
 	if (activeSession.status === 401) {
-		response.cookies.delete(sessionNames[0]);
-		response.cookies.delete(sessionNames[1]);
-		response.cookies.delete(sessionNames[2]);
+		for (const name of sessionNames) {
+			response.cookies.delete(name);
+		}
 		if (currentPath.startsWith("/auth")) return response;
-		return NextResponse.redirect(
-			new URL(
-				`/auth?callbackUrl=${encodeURIComponent(currentHref)}`,
-				currentOrigin,
-			),
-			{
-				headers: {
-					"set-cookie": `callback_url=${encodeURIComponent(currentHref)}`,
-				},
-			},
-		);
+		return redirectAuth(currentHref, currentOrigin);
 	}
 
-	response.cookies.set("callback_url", encodeURIComponent(currentHref));
-
 	if (!isHasTokenCookie(cookies)) {
-		const token = await renewToken(cookies, host);
-    response.cookies.set(token);
+		const token = await renewToken(cookies, host.split(":")[0]);
+		if (token) {
+			response.cookies.set(token);
+		}
 	}
 
 	if (currentPath === "/")
@@ -74,43 +54,50 @@ export const config = {
 
 export const isHasAuthSession = async (cookies: RequestCookies) => {
 	const reqHeaders = appwriteHeader(cookies);
-	const req = await fetch(`${baseAuthUrl}/account/session/current`, {
+	return await fetch(`${baseAuthUrl}/account/session/current`, {
 		method: "GET",
 		headers: reqHeaders,
 	});
-	return req;
 };
 
 export const renewToken = async (cookies: RequestCookies, host: string) => {
 	const reqHeaders = appwriteHeader(cookies);
 
 	try {
-		const req = await fetch(`${baseAuthUrl}/account/jwt`, {
+		const { jwt } = await fetch(`${baseAuthUrl}/account/jwt`, {
 			method: "POST",
 			headers: reqHeaders,
-		});
+		}).then((res) => res.json());
 
-		const data = await req.json();
-		const expires = getExpToken(data.jwt);
+		const expires = getExpToken(jwt);
+		const expDate = new Date(expires);
 		const result = {
 			name: sessionNames[2],
-			value: data.jwt,
+			value: jwt,
 			path: "/",
-			expires: new Date(expires),
+			expires: expDate,
 		};
+
 		if (!isValidIpAddress(host)) {
 			Object.assign(result, {
 				domain: newHostname(host),
 				httpOnly: true,
 				secure: true,
-				sameSite: true,
-				priority: "high",
 			});
 		}
 
-		return result as RequestCookie;
-	} catch (e) {
-		console.log("middleware create token", e);
-		return {} as RequestCookie;
+		return result;
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	} catch (e: any) {
+		console.error("middleware create token", e.response.data.message);
+		return undefined;
 	}
 };
+
+function redirectAuth(currentHref: string, currentOrigin: string) {
+	return NextResponse.redirect(new URL("/auth", currentOrigin), {
+		headers: {
+			"set-cookie": `callback_url=${encodeURIComponent(currentHref)}`,
+		},
+	});
+}

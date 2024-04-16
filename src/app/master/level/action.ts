@@ -1,8 +1,8 @@
 "use server";
 
 import { setAuthorizeHeader } from "@helpers/index";
-import { BaseDelete, type Pageable } from "@tipes/index";
-import { Level } from "@tipes/master/level";
+import { BaseDelete, type Pageable } from "@_types/index";
+import { Level } from "@_types/master/level";
 import { API_URL } from "@utils/index";
 import axios from "axios";
 import { revalidateTag } from "next/cache";

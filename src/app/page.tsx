@@ -1,9 +1,6 @@
-import ThemeButton from "@components/template/topbar/ThemeButton";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="ml-2">
-      <ThemeButton />
-    </div>
-  );
+  redirect("/dashboard")
+	return <div className="ml-2">Nothing Happend</div>;
 }

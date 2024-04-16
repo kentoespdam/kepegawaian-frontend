@@ -2,10 +2,10 @@
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { ResetIcon } from "@radix-ui/react-icons";
-import type { CustomColumnDef } from "@tipes/index";
-import type { Jabatan } from "@tipes/master/jabatan";
-import type { Level } from "@tipes/master/level";
-import type { Organisasi } from "@tipes/master/organisasi";
+import type { CustomColumnDef } from "@_types/index";
+import type { Jabatan } from "@_types/master/jabatan";
+import type { Level } from "@_types/master/level";
+import type { Organisasi } from "@_types/master/organisasi";
 import {
 	usePathname,
 	useRouter,

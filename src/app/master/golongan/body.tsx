@@ -1,8 +1,8 @@
 import ButtonDeleteBuilder from "@components/builder/button/delete";
 import ButtonEditBuilder from "@components/builder/button/edit";
 import { TableBody, TableCell, TableRow } from "@components/ui/table";
-import type { Pageable } from "@tipes/index";
-import { type Golongan, golonganTableColumns } from "@tipes/master/golongan";
+import type { Pageable } from "@_types/index";
+import { type Golongan, golonganTableColumns } from "@_types/master/golongan";
 import { hapus } from "./action";
 
 const GolonganTableBody = ({ data }: { data: Pageable<Golongan> | null }) => {

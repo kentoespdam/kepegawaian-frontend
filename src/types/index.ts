@@ -59,7 +59,13 @@ export interface PageResponse<TData> {
 	timestamp: string;
 }
 
-export const ESearchType = z.enum(["text", "number", "level", "organisasi", "jabatan"]);
+export const ESearchType = z.enum([
+	"text",
+	"number",
+	"level",
+	"organisasi",
+	"jabatan"
+]);
 
 export type BaseColumnDef = {
 	id: string;

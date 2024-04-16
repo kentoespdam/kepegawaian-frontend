@@ -1,4 +1,4 @@
-import { USER_ROLE, UserRole } from "@tipes/index";
+import { USER_ROLE, UserRole } from "@_types/index";
 import { BarcodeIcon, BoxesIcon, GitCompareArrowsIcon, HomeIcon, NavigationIcon, RadicalIcon, ShovelIcon, SignalIcon } from "lucide-react";
 import type React from "react";
 import { z } from "zod";
