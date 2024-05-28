@@ -26,7 +26,7 @@ const StatusPegawaiForm = (props: StatusPegawaiFormProps) => {
 						<AlertBuilder
 							key={key}
 							message={String(value)}
-							variant="error"
+							variant="destructive"
 							untitled
 						/>
 					))}

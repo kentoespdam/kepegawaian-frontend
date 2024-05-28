@@ -27,7 +27,7 @@ const LevelForm = (props: LevelFormProps) => {
 						<AlertBuilder
 							key={key}
 							message={String(value)}
-							variant="error"
+							variant="destructive"
 							untitled
 						/>
 					))}

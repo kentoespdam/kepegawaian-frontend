@@ -29,7 +29,7 @@ const GolonganForm = ({ data }: { data?: Golongan }) => {
 						<AlertBuilder
 							key={key}
 							message={String(value)}
-							variant="error"
+							variant="destructive"
 							untitled
 						/>
 					))}

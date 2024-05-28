@@ -34,7 +34,7 @@ const GradeFormComponent = ({
 						<AlertBuilder
 							key={key}
 							message={String(value)}
-							variant="error"
+							variant="destructive"
 							untitled
 						/>
 					))}
