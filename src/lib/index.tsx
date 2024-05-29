@@ -1,5 +1,5 @@
 import { USER_ROLE, UserRole } from "@_types/index";
-import { BarcodeIcon, BoxesIcon, GitCompareArrowsIcon, HomeIcon, NavigationIcon, RadicalIcon, ShovelIcon, SignalIcon } from "lucide-react";
+import { BarcodeIcon, BoxesIcon, GitCompareArrowsIcon, HammerIcon, HomeIcon, NavigationIcon, RadicalIcon, ShieldIcon, ShovelIcon, SignalIcon } from "lucide-react";
 import type React from "react";
 import { z } from "zod";
 
@@ -70,7 +70,20 @@ export const menus: IMenu[] = [
         name: "Profesi",
         icon: <ShovelIcon className={defaultIconClassName} />,
         role: USER_ROLE.ADMIN,
-      }, {
+      },
+      {
+        path: "/master/alat_kerja",
+        name: "Alat Kerja",
+        icon: <HammerIcon className={defaultIconClassName} />,
+        role: USER_ROLE.ADMIN,
+      },
+      {
+        path: "/master/apd",
+        name: "APD",
+        icon: <ShieldIcon className={defaultIconClassName} />,
+        role: USER_ROLE.ADMIN,
+      },
+      {
         path: "/master/organisasi",
         name: "Organisasi",
         icon: <GitCompareArrowsIcon className={defaultIconClassName} />,

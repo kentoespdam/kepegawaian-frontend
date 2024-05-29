@@ -1,21 +1,23 @@
 "use client";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/input";
-import { ResetIcon } from "@radix-ui/react-icons";
 import type { CustomColumnDef } from "@_types/index";
 import type { Jabatan } from "@_types/master/jabatan";
 import type { Level } from "@_types/master/level";
 import type { Organisasi } from "@_types/master/organisasi";
+import type { Profesi, ProfesiMini } from "@_types/master/profesi";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { ResetIcon } from "@radix-ui/react-icons";
 import {
+	type ReadonlyURLSearchParams,
 	usePathname,
 	useRouter,
 	useSearchParams,
-	type ReadonlyURLSearchParams,
 } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import TooltipBuilder from "../tooltip";
 import JabatanSearchBuilder from "./jabatanSearch";
 import LevelSearchBuilder from "./levelSearch";
+import ProfesiSearchBuilder from "./profesiSearch";
 
 type SearchComponentProps = {
 	col: CustomColumnDef;
@@ -24,6 +26,7 @@ type SearchComponentProps = {
 	levels?: Level[];
 	organisasis?: Organisasi[]
 	jabatans?: Jabatan[]
+	profesis?: ProfesiMini[]
 };
 const SearchComponent = ({
 	col,
@@ -31,7 +34,8 @@ const SearchComponent = ({
 	handleSearch,
 	levels,
 	organisasis,
-	jabatans
+	jabatans,
+	profesis
 }: SearchComponentProps) => {
 	if (!col.search) return null;
 
@@ -75,6 +79,19 @@ const SearchComponent = ({
 				</div>
 			);
 		}
+		case "profesi": {
+			const profesiId = searchParams.get(col.id);
+			return !profesis ? null : (
+				<div className="w-52">
+					<ProfesiSearchBuilder
+						col={col}
+						list={profesis}
+						id={profesiId}
+						handleSearch={handleSearch}
+					/>
+				</div>
+			)
+		}
 		case "number": {
 			const number = searchParams.get(col.id);
 			return (
@@ -114,8 +131,9 @@ type SearchBuilderProps = {
 	levels?: Level[];
 	organisasis?: Organisasi[]
 	jabatans?: Jabatan[]
+	profesis?: ProfesiMini[]
 };
-const SearchBuilder = ({ columns, levels, organisasis, jabatans }: SearchBuilderProps) => {
+const SearchBuilder = ({ columns, levels, organisasis, jabatans, profesis }: SearchBuilderProps) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -155,6 +173,7 @@ const SearchBuilder = ({ columns, levels, organisasis, jabatans }: SearchBuilder
 						levels={levels}
 						organisasis={organisasis}
 						jabatans={jabatans}
+						profesis={profesis}
 						handleSearch={handleSearch}
 					/>
 				))}

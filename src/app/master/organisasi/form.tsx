@@ -24,7 +24,7 @@ const OrganisasiFormComponent = ({ orgParent, data }: { orgParent: Organisasi[] 
                         <AlertBuilder
                             key={key}
                             message={String(value)}
-                            variant="error"
+                            variant="destructive"
                             untitled
                         />
                     ))}

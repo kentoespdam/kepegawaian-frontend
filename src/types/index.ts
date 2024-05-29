@@ -64,7 +64,8 @@ export const ESearchType = z.enum([
 	"number",
 	"level",
 	"organisasi",
-	"jabatan"
+	"jabatan",
+	"profesi"
 ]);
 
 export type BaseColumnDef = {

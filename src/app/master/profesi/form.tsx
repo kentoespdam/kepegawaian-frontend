@@ -11,6 +11,7 @@ import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import { saveProfesi } from "./action";
+import { Textarea } from "@components/ui/textarea";
 
 type ProfesiFormComponentProps = {
     levels: Level[] | null,
@@ -28,7 +29,7 @@ const ProfesiFormComponent = ({ levels, data }: ProfesiFormComponentProps) => {
                         <AlertBuilder
                             key={key}
                             message={String(value)}
-                            variant="error"
+                            variant="destructive"
                             untitled
                         />
                     ))}
@@ -50,6 +51,7 @@ const ProfesiFormComponent = ({ levels, data }: ProfesiFormComponentProps) => {
                         </SelectContent>
                     </Select>
                 </div>
+                
                 <div className="grid w-full items-center gap-1.5">
                     <Label htmlFor="nama">Nama</Label>
                     <Input
@@ -57,6 +59,28 @@ const ProfesiFormComponent = ({ levels, data }: ProfesiFormComponentProps) => {
                         name="nama"
                         placeholder="nama"
                         defaultValue={data?.nama}
+                        required
+                    />
+                </div>
+                
+                <div className="grid w-full items-center gap-1.5">
+                    <Label htmlFor="detail">Detail</Label>
+                    <Textarea
+                        id="detail"
+                        name="detail"
+                        placeholder="detail"
+                        defaultValue={data?.detail}
+                        required
+                    />
+                </div>
+                
+                <div className="grid w-full items-center gap-1.5">
+                    <Label htmlFor="resiko">Resiko</Label>
+                    <Textarea
+                        id="resiko"
+                        name="resiko"
+                        placeholder="resiko"
+                        defaultValue={data?.resiko}
                         required
                     />
                 </div>

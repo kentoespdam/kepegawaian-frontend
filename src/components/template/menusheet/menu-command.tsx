@@ -38,7 +38,7 @@ const SheetMenuCommand = () => {
 	return (
 		<Command className="h-full">
 			<CommandInput placeholder="Type to search..." />
-			<CommandList className="h-screen">
+			<CommandList className="h-screen max-h-[100%]">
 				<CommandEmpty>No results found.</CommandEmpty>
 				{menus.map((menu) => (
 					<MenulistBuilder menu={menu} key={`${menu.name}-${menu.path}`} />

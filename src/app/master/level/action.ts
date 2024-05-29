@@ -68,8 +68,8 @@ export const saveLevel = async (_prevState: unknown, formData: FormData) => {
 			nama: formData.get("nama"),
 		});
 
-		if (!validate.success)
-			return { error: validate.error.flatten().fieldErrors };
+		if (!validate.success){
+			return { error: validate.error.flatten().fieldErrors };}
 
 		validate.data.id > 0
 			? await axios.put(

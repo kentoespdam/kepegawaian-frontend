@@ -1,37 +1,58 @@
 import { z } from "zod";
 import type { CustomColumnDef } from "..";
-import type { Level } from "./level";
+import { Level } from "./level";
 
-export interface Profesi {
-    id: number;
-    level: Level
-    nama: string;
-}
+export const ProfesiMini = z.object({
+	id: z.number(),
+	nama: z.string(),
+});
+
+export type ProfesiMini = z.infer<typeof ProfesiMini>;
+
+export const Profesi = ProfesiMini.extend({
+	id: z.number(),
+    level: Level,
+	detail: z.string(),
+	resiko: z.string(),
+});
+
+export type Profesi = z.infer<typeof Profesi>;
 
 export const ProfesiSchema = z.object({
-    id: z.optional(z.number()),
-    levelId: z.number().min(1, "Level is required"),
-    nama: z.string({ required_error: "Nama is required" }),
-})
+	id: z.optional(z.number()),
+	levelId: z.number().min(1, "Level is required"),
+	nama: z.string({ required_error: "Nama is required" }),
+	detail: z.string({ required_error: "Detail is required" }),
+	resiko: z.string({ required_error: "Resiko is required" }),
+});
 
 export const profesiTableColumns: CustomColumnDef[] = [
-    {
-        id: "urut",
-        label: "No",
-    },
-    {
-        id: "levelId",
-        label: "Level",
-        search: true,
-        searchType: "level"
-    },
-    {
-        id: "nama",
-        label: "Nama",
-        search: true,
-        searchType: "text"
-    }, {
-        id: "aksi",
-        label: "Aksi",
-    }
-]
+	{
+		id: "urut",
+		label: "No",
+	},
+	{
+		id: "levelId",
+		label: "Level",
+		search: true,
+		searchType: "level",
+	},
+	{
+		id: "nama",
+		label: "Nama",
+		search: true,
+		searchType: "text",
+	},
+	{
+		id: "detail",
+		label: "Detail",
+	},
+	{
+		id: "resiko",
+		label: "Resiko",
+	},
+	{
+		id: "aksi",
+		label: "Aksi",
+	},
+];

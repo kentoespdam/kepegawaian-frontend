@@ -35,7 +35,7 @@ const JabatanFormComponent = ({ jabatans, organisasis, levels, data }: JabatanFo
                         <AlertBuilder
                             key={key}
                             message={String(value)}
-                            variant="error"
+                            variant="destructive"
                             untitled
                         />
                     ))}
