@@ -3,7 +3,7 @@ import { getJenisPelatihanById } from "../../action";
 import JenisPelatihanFormComponent from "../../form";
 
 export const metadata = {
-	title: "Edit Master Jenis Kartu Identitas",
+	title: "Edit Master Jenis Pelatihan",
 };
 const EditJenisPelatihanPage = async ({
 	params,

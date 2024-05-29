@@ -1,20 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
-import JenisPelatihanFormComponent from "../form";
+import JenjangPendidikanFormComponent from "../form";
 
 export const metadata = {
-	title: "Add Master Jenis Pelatihan",
+	title: "Add Master Jenjang Pendidikan",
 };
-const AddJenisPelatihanPage = () => {
+const AddJenjangPendidikanPage = () => {
 	return (
 		<Card className="mx-12 sm:mx-0 md:mx-48">
 			<CardHeader>
 				<CardTitle>{metadata.title}</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<JenisPelatihanFormComponent />
+				<JenjangPendidikanFormComponent />
 			</CardContent>
 		</Card>
 	);
 };
 
-export default AddJenisPelatihanPage;
+export default AddJenjangPendidikanPage;
