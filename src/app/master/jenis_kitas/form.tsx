@@ -1,22 +1,23 @@
 "use client";
-import type { JenisKeahlian } from "@_types/master/jenis_keahlian";
+
+import type { JenisKitas } from "@_types/master/jenis_kitas";
+import { useFormState } from "react-dom";
+import { saveJenisKitas } from "./action";
+import { useRouter } from "next/navigation";
 import AlertBuilder from "@components/builder/alert";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
+import { Input } from "@components/ui/input";
+import { Button } from "@components/ui/button";
 import { LoadingButton } from "@components/ui/loading-button";
 import { SaveIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useFormState } from "react-dom";
-import { saveJenisKeahlian } from "./action";
 
-type JenisKeahlianFormComponentProps = {
-	data?: JenisKeahlian;
+type JenisKitasFormComponentProps = {
+	data?: JenisKitas;
 };
-const JenisKeahlianFormComponent = ({ data }: JenisKeahlianFormComponentProps) => {
-	const [state, action] = useFormState(saveJenisKeahlian, null);
+const JenisKitasFormComponent = ({ data }: JenisKitasFormComponentProps) => {
+	const [state, action] = useFormState(saveJenisKitas, null);
 	const { push } = useRouter();
-	const cancelForm = () => push("/master/jenis_keahlian");
+	const cancelForm = () => push("/master/jenis_kitas");
 
 	return (
 		<>
@@ -35,11 +36,11 @@ const JenisKeahlianFormComponent = ({ data }: JenisKeahlianFormComponentProps) =
 
 			<form className="space-y-4" action={action}>
 				<div className="grid w-full items-center gap-1.5">
-					<Label htmlFor="nama">Nama Keahlian</Label>
+					<Label htmlFor="nama">Jenis Kartu</Label>
 					<Input
 						id="nama"
 						name="nama"
-						placeholder="Nama Keahlian"
+						placeholder="Jenis Kartu"
 						defaultValue={data?.nama}
 					/>
 				</div>
@@ -55,4 +56,4 @@ const JenisKeahlianFormComponent = ({ data }: JenisKeahlianFormComponentProps) =
 	);
 };
 
-export default JenisKeahlianFormComponent;
+export default JenisKitasFormComponent;
