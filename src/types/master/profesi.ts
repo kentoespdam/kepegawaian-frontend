@@ -11,7 +11,7 @@ export type ProfesiMini = z.infer<typeof ProfesiMini>;
 
 export const Profesi = ProfesiMini.extend({
 	id: z.number(),
-    level: Level,
+	level: Level,
 	detail: z.string(),
 	resiko: z.string(),
 });
@@ -56,3 +56,8 @@ export const profesiTableColumns: CustomColumnDef[] = [
 		label: "Aksi",
 	},
 ];
+
+export const findValue = (
+	list: ProfesiMini[],
+	id: string | number | null,
+): ProfesiMini | undefined => list.find((row) => row.id === Number(id));

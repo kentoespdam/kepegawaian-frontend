@@ -1,6 +1,5 @@
 "use client";
-
-import type { Apd } from "@_types/master/apd";
+import type { AlatKerja } from "@_types/master/alat_kerja";
 import type { ProfesiMini } from "@_types/master/profesi";
 import AlertBuilder from "@components/builder/alert";
 import { Button } from "@components/ui/button";
@@ -11,15 +10,21 @@ import ProfesiCommand from "@components/ui/profesi_command";
 import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
-import { saveApd } from "./action";
+import { saveAlatKerja } from "./action";
 
-const ApdFormPage = ({
+type AlatKerjaFormComponentProps = {
+	profesiList: ProfesiMini[];
+	data?: AlatKerja;
+	id?: number;
+};
+const AlatKerjaFormComponent = ({
 	profesiList,
 	data,
-}: { profesiList: ProfesiMini[]; data?: Apd }) => {
-	const [state, action] = useFormState(saveApd, null);
+	id,
+}: AlatKerjaFormComponentProps) => {
+	const [state, action] = useFormState(saveAlatKerja, null);
 	const { push } = useRouter();
-	const cancelForm = () => push("/master/apd");
+	const cancelForm = () => push("/master/alat_kerja");
 
 	return (
 		<>
@@ -42,11 +47,11 @@ const ApdFormPage = ({
 					<ProfesiCommand list={profesiList} id={data?.profesi.id} />
 				</div>
 				<div className="grid w-full items-center gap-1.5">
-					<Label htmlFor="nama">Nama</Label>
+					<Label htmlFor="nama">Nama Alat Kerja</Label>
 					<Input
 						id="nama"
 						name="nama"
-						placeholder="Nama APD"
+						placeholder="Nama Alat Kerja"
 						defaultValue={data?.nama}
 					/>
 				</div>
@@ -62,4 +67,4 @@ const ApdFormPage = ({
 	);
 };
 
-export default ApdFormPage;
+export default AlatKerjaFormComponent;

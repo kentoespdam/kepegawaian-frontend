@@ -30,7 +30,7 @@ export const getDataProfesi = async (
 
 export const getListProfesi = async (
 	searchParams?: string,
-): Promise<ProfesiMini[] | null> => {
+): Promise<ProfesiMini[]> => {
 	try {
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
@@ -43,7 +43,7 @@ export const getListProfesi = async (
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (error: any) {
 		console.log("get profesi list", error.response.data);
-		return null;
+		return [];
 	}
 };
 
