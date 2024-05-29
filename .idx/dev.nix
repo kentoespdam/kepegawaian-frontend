@@ -23,12 +23,10 @@
   idx.extensions = [
     "patbenatar.advanced-new-file"
     "formulahendry.auto-rename-tag"
-    "biomejs.biome-nightly"
     "sleistner.vscode-fileutils"
     "wix.vscode-import-cost"
     "pulkitgangwar.nextjs-snippets"
     "csstools.postcss"
-    "bradlc.vscode-tailwindcss"
   ];
   idx.workspace.onCreate = {
     npm-install = "bun install";
