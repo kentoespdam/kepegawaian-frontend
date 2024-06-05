@@ -1,15 +1,13 @@
 import { z } from "zod";
-import { Level } from "./level";
 import type { CustomColumnDef } from "..";
+import type { Level } from "./level";
 
-export const Grade = z.object({
-	id: z.number(),
-	level: Level,
-	grade: z.number(),
-	tukin: z.number(),
-});
-
-export type Grade = z.infer<typeof Grade>;
+export interface Grade {
+	id: number;
+	level: Level;
+	grade: number;
+	tukin: number;
+}
 
 export const GradeForm = z.object({
 	id: z.optional(z.number()),

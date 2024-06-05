@@ -1,12 +1,10 @@
 import { z } from "zod";
 import type { CustomColumnDef } from "..";
 
-export const Pangkat = z.object({
-	id: z.number(),
-	nama: z.string(),
-});
-
-export type Pangkat = z.infer<typeof Pangkat>;
+export interface Pangkat {
+	id: number;
+	nama: string;
+}
 
 export const pangkatTableColumns: CustomColumnDef[] = [
 	{ id: "urut", label: "No" },

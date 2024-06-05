@@ -1,12 +1,10 @@
 import { z } from "zod";
 import type { CustomColumnDef } from "..";
 
-export const JenisKeahlian = z.object({
-	id: z.number(),
-	nama: z.string(),
-});
-
-export type JenisKeahlian = z.infer<typeof JenisKeahlian>;
+export interface JenisKeahlian {
+	id: number;
+	nama: string;
+}
 
 export const JenisKeahlianSchema = z.object({
 	id: z.number(),

@@ -1,13 +1,10 @@
-import { z } from "zod";
 import type { CustomColumnDef } from "..";
 
-export const Golongan = z.object({
-	id: z.number(),
-	golongan: z.string(),
-	pangkat: z.string(),
-});
-
-export type Golongan = z.infer<typeof Golongan>;
+export interface Golongan {
+	id: number;
+	golongan: string;
+	pangkat: string;
+}
 
 export const golonganTableColumns: CustomColumnDef[] = [
 	{ id: "urut", label: "No" },

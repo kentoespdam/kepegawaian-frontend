@@ -1,8 +1,13 @@
 import { USER_ROLE, UserRole } from "@_types/index";
 import {
 	BarcodeIcon,
+	BookOpenIcon,
 	BoxesIcon,
+	CircleCheckBigIcon,
+	ContactRoundIcon,
+	CreditCardIcon,
 	GitCompareArrowsIcon,
+	GraduationCapIcon,
 	HammerIcon,
 	HomeIcon,
 	NavigationIcon,
@@ -10,6 +15,7 @@ import {
 	ShieldIcon,
 	ShovelIcon,
 	SignalIcon,
+	TelescopeIcon,
 } from "lucide-react";
 import type React from "react";
 import { z } from "zod";
@@ -57,9 +63,15 @@ export const menus: IMenu[] = [
 		role: "ADMIN",
 		subMenu: [
 			{
-				path: "/master/status-pegawai",
+				path: "/master/status_pegawai",
 				name: "Status Pegawai",
 				icon: <BoxesIcon className={defaultIconClassName} />,
+				role: USER_ROLE.ADMIN,
+			},
+			{
+				path: "/master/status_kerja",
+				name: "Status Kerja",
+				icon: <CircleCheckBigIcon className={defaultIconClassName} />,
 				role: USER_ROLE.ADMIN,
 			},
 			{
@@ -113,26 +125,40 @@ export const menus: IMenu[] = [
 			{
 				path: "/master/jenis_keahlian",
 				name: "Jenis Keahlian",
-				icon: <SignalIcon className={defaultIconClassName} />,
+				icon: <TelescopeIcon className={defaultIconClassName} />,
 				role: USER_ROLE.ADMIN,
 			},
 			{
 				path: "/master/jenis_kitas",
 				name: "Jenis Kartu Identitas",
-				icon: <SignalIcon className={defaultIconClassName} />,
+				icon: <CreditCardIcon className={defaultIconClassName} />,
 				role: USER_ROLE.ADMIN,
 			},
 			{
 				path: "/master/jenis_pelatihan",
 				name: "Jenis Pelatihan",
-				icon: <SignalIcon className={defaultIconClassName} />,
+				icon: <BookOpenIcon className={defaultIconClassName} />,
 				role: USER_ROLE.ADMIN,
 			},
 			{
 				path: "/master/jenjang_pendidikan",
 				name: "Jenjang Pendidikan",
-				icon: <SignalIcon className={defaultIconClassName} />,
+				icon: <GraduationCapIcon className={defaultIconClassName} />,
 				role: USER_ROLE.ADMIN,
+			},
+		],
+	},
+	{
+		path: "#",
+		name: "Kepegawaian",
+		type: "group",
+		role: "USER",
+		subMenu: [
+			{
+				path: "/kepegawaian/data_pegawai",
+				name: "Data Pegawai",
+				icon: <ContactRoundIcon className={defaultIconClassName} />,
+				role: "ADMIN",
 			},
 		],
 	},

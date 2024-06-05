@@ -1,13 +1,11 @@
 import { z } from "zod";
 import type { CustomColumnDef } from "..";
 
-export const JenjangPendidikan = z.object({
-	id: z.number(),
-	nama: z.string(),
-	seq: z.number(),
-});
-
-export type JenjangPendidikan = z.infer<typeof JenjangPendidikan>;
+export interface JenjangPendidikan {
+	id: number;
+	nama: string;
+	seq: number;
+}
 
 export const JenjangPendidikanSchema = z.object({
 	id: z.number(),

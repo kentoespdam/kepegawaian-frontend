@@ -1,22 +1,21 @@
 import { z } from "zod";
 import type { CustomColumnDef } from "..";
-import { Level } from "./level";
+import type { AlatKerjaMini } from "./alat_kerja";
+import type { Apd } from "./apd";
+import type { Level } from "./level";
 
-export const ProfesiMini = z.object({
-	id: z.number(),
-	nama: z.string(),
-});
+export interface ProfesiMini {
+	id: number;
+	nama: string;
+}
 
-export type ProfesiMini = z.infer<typeof ProfesiMini>;
-
-export const Profesi = ProfesiMini.extend({
-	id: z.number(),
-	level: Level,
-	detail: z.string(),
-	resiko: z.string(),
-});
-
-export type Profesi = z.infer<typeof Profesi>;
+export interface Profesi extends ProfesiMini {
+	level: Level;
+	detail: string | null;
+	resiko: string | null;
+	apdList: Apd[] | null;
+	alatKerjaList: AlatKerjaMini[] | null;
+}
 
 export const ProfesiSchema = z.object({
 	id: z.optional(z.number()),

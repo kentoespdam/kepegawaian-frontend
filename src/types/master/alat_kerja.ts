@@ -1,19 +1,13 @@
 import { z } from "zod";
-import { Profesi } from "./profesi";
+import { Profesi, ProfesiMini } from "./profesi";
 import type { CustomColumnDef } from "..";
 
-export const AlatKerjaMini = z.object({
-	id: z.number(),
-	nama: z.string(),
-});
+export interface AlatKerjaMini {
+	id: number;
+	nama: string;
+}
 
-export type AlatKerjaMini = z.infer<typeof AlatKerjaMini>;
-
-export const AlatKerja = AlatKerjaMini.extend({
-	profesi: Profesi,
-});
-
-export type AlatKerja = z.infer<typeof AlatKerja>;
+export interface AlatKerja extends AlatKerjaMini {}
 
 export const AlatKerjaSchema = z.object({
 	id: z.number(),

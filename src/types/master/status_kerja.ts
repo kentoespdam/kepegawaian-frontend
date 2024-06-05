@@ -1,11 +1,11 @@
 import type { CustomColumnDef } from "..";
 
-export interface Level {
+export interface StatusKerja {
 	id: number;
 	nama: string;
 }
 
-export const levelTableColumns: CustomColumnDef[] = [
+export const statusKerjaTableColumns: CustomColumnDef[] = [
 	{
 		id: "urut",
 		label: "No",
