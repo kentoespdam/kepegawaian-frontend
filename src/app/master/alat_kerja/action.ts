@@ -16,7 +16,7 @@ export const getDataAlatKerja = async (
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
 		const { data, status } = await axios.get(
-			`${API_URL}/master/alat_kerja?${searchParams}`,
+			`${API_URL}/master/alat-kerja?${searchParams}`,
 			{ headers },
 		);
 		if (status !== 200) throw new Error(data.response.data.message);
@@ -35,7 +35,7 @@ export const getListAlatKerja = async (
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
 		const { data, status } = await axios.get(
-			`${API_URL}/master/alat_kerja/list?${searchParams}`,
+			`${API_URL}/master/alat-kerja/list?${searchParams}`,
 			{ headers: headers },
 		);
 
@@ -53,7 +53,7 @@ export const getAlatKerjaById = async (id: number): Promise<AlatKerja | undefine
 	try {
 		const cookieList = cookies();
 		const headers = setAuthorizeHeader(cookieList);
-		const { data, status } = await axios.get(`${API_URL}/master/alat_kerja/${id}`, {
+		const { data, status } = await axios.get(`${API_URL}/master/alat-kerja/${id}`, {
 			headers: headers,
 		});
 
@@ -83,16 +83,16 @@ export const saveAlatKerja = async (_prevState: unknown, formData: FormData) => 
 			return { error: validate.error.flatten().fieldErrors };
 
 		validate.data.id > 0
-			? await axios.put(`${API_URL}/master/alat_kerja/${validate.data.id}`, formData, {
+			? await axios.put(`${API_URL}/master/alat-kerja/${validate.data.id}`, formData, {
 					headers: headers,
 				})
-			: await axios.post(`${API_URL}/master/alat_kerja`, formData, {
+			: await axios.post(`${API_URL}/master/alat-kerja`, formData, {
 					headers: headers,
 				});
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (e: any) {
-		console.log(e.response.dats);
+		console.log(e.response.data);
 		return { error: e.response.data };
 	}
 
@@ -125,7 +125,7 @@ export const hapus = async (_prevState: unknown, formData: FormData) => {
 				error: { message: "invalid data" },
 			};
 
-		await axios.delete(`${API_URL}/master/alat_kerja/${id}`, { headers: headers });
+		await axios.delete(`${API_URL}/master/alat-kerja/${id}`, { headers: headers });
 
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (err: any) {

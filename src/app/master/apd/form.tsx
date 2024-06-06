@@ -7,7 +7,7 @@ import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { LoadingButton } from "@components/ui/loading-button";
-import ProfesiCommand from "@components/ui/profesi_command";
+import ProfesiCommand from "@components/ui/form/profesi_command";
 import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
