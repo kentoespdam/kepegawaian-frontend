@@ -1,12 +1,12 @@
 "use client";
-import type { Employee } from "@_types/pegawai";
+import type { Pegawai } from "@_types/pegawai";
 import type { User } from "@_types/user";
 import { useSessionStore } from "@store/session";
 import { useEffect } from "react";
 
 interface EmployeeStateComponentProps {
 	userAccount: User;
-	employee?: Employee | null;
+	employee?: Pegawai | null;
 }
 
 const EmployeeStateComponent: React.FC<EmployeeStateComponentProps> = ({
