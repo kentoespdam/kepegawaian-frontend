@@ -10,10 +10,9 @@ import {
 import { extracNipamFromToken } from "@helpers/index";
 import { getCurrentUser } from "@lib/appwrite/user"; // Import getCurrentUser dari @lib/appwrite/user
 import { getEmployeeByNipam } from "@utils/employee"; // Import getEmployeeByNipam dari @utils/employee
-import { KeyRoundIcon, LogOutIcon } from "lucide-react";
+import { ChevronDownIcon, KeyRoundIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
 import ThemeButton from "../topbar/ThemeButton";
 import EmployeeStateComponent from "./employee-state";
 import LogoutButton from "./logout-button";

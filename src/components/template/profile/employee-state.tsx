@@ -1,5 +1,5 @@
 "use client";
-import type { Employee } from "@_types/employee";
+import type { Employee } from "@_types/pegawai";
 import type { User } from "@_types/user";
 import { useSessionStore } from "@store/session";
 import { useEffect } from "react";
