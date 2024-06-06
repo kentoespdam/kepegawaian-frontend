@@ -1,29 +1,26 @@
-import { z } from "zod";
-import { BaseId, type CustomColumnDef } from ".";
-import { BiodataMini } from "./profil/biodata";
-import { StatusPegawai } from "./master/status_pegawai";
-import { Jabatan } from "./master/jabatan";
-import { Organisasi } from "./master/organisasi";
-import { Profesi } from "./master/profesi";
-import { Golongan } from "./master/golongan";
-import { Grade } from "./master/grade";
-import { StatusKerja } from "./master/status_kerja";
+import type { CustomColumnDef } from ".";
+import type { Golongan } from "./master/golongan";
+import type { Grade } from "./master/grade";
+import type { Jabatan } from "./master/jabatan";
+import type { Organisasi } from "./master/organisasi";
+import type { Profesi } from "./master/profesi";
+import type { StatusKerja } from "./master/status_kerja";
+import type { StatusPegawai } from "./master/status_pegawai";
+import type { BiodataMini } from "./profil/biodata";
 
-export const Pegawai = BaseId.extend({
-	id: z.number(),
-	nipam: z.string(),
-	biodata: BiodataMini,
-	statusPegawai: StatusPegawai,
-	jabatan: Jabatan,
-	organisasi: Organisasi,
-	profesi: Profesi,
-	golongan: Golongan,
-	grade: Grade,
-	statusKerja: StatusKerja,
-	notes: z.string().nullable(),
-});
-
-export type Pegawai = z.infer<typeof Pegawai>;
+export interface Pegawai {
+	id: number;
+	nipam: string;
+	biodata: BiodataMini;
+	statusPegawai: StatusPegawai;
+	jabatan: Jabatan;
+	organisasi: Organisasi;
+	profesi: Profesi;
+	golongan: Golongan;
+	grade: Grade;
+	statusKerja: StatusKerja;
+	notes: string | null;
+}
 
 export const pegawaiTableColumns: CustomColumnDef[] = [
 	{

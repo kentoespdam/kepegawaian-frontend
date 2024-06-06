@@ -1,10 +1,7 @@
-import { JenisKitas } from "@_types/master/jenis_kitas";
-import { z } from "zod";
+import type { JenisKitas } from "@_types/master/jenis_kitas";
 
-export const KartuIdentitas = z.object({
-	id: z.number(),
-	jenisKartu: JenisKitas,
-	nomorKartu: z.string(),
-});
-
-export type KartuIdentitas = z.infer<typeof KartuIdentitas>;
+export interface KartuIdentitas {
+	id: number;
+	jenisKartu: JenisKitas;
+	nomorKartu: string;
+}

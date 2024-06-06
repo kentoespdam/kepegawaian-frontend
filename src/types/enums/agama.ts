@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Agama = z.enum([
+export const AGAMA = [
 	"TIDAK_TAHU",
 	"ISLAM",
 	"KRISTEN",
@@ -8,6 +8,8 @@ export const Agama = z.enum([
 	"HINDU",
 	"BUDHA",
 	"LAINNYA",
-]);
+] as const;
+
+export const Agama = z.enum(AGAMA);
 
 export type Agama = z.infer<typeof Agama>;

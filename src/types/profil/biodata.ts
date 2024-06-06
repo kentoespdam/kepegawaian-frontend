@@ -1,36 +1,30 @@
-import { Agama } from "@_types/enums/agama";
-import { GolonganDarah } from "@_types/enums/golongan_darah";
-import { JenisKelamin } from "@_types/enums/jenisKelamin";
-import { StatusKawin } from "@_types/enums/status_kawin";
+import type { Agama } from "@_types/enums/agama";
+import type { StatusKawin } from "@_types/enums/status_kawin";
 import { z } from "zod";
-import { KartuIdentitas } from "./kartu_identitas";
-import { PendidikanTerakhir } from "./pendidikan_terakhir";
 import type { CustomColumnDef } from "..";
+import type { KartuIdentitas } from "./kartu_identitas";
+import type { PendidikanTerakhir } from "./pendidikan_terakhir";
 
-export const BiodataMini = z.object({
-	nik: z.string(),
-	nama: z.string(),
-	jenisKelamin: JenisKelamin,
-});
+export interface BiodataMini {
+	nik: string;
+	nama: string;
+	jenisKelamin: string;
+}
 
-export type BiodataMini = z.infer<typeof BiodataMini>;
-
-export const Biodata = BiodataMini.extend({
-	tempatLahir: z.string(),
-	tanggalLahir: z.string(),
-	alamat: z.string(),
-	telp: z.string(),
-	agama: Agama,
-	ibuKandung: z.string(),
-	pendidikanTerakhir: PendidikanTerakhir,
-	golonganDarah: GolonganDarah,
-	statusKawin: StatusKawin,
-	fotoProfil: z.string(),
-	notes: z.string(),
-	kartuIdentitas: KartuIdentitas,
-});
-
-export type Biodata = z.infer<typeof Biodata>;
+export interface Biodata extends BiodataMini {
+	tempatLahir: string;
+	tanggalLahir: Date;
+	alamat: string;
+	telp: string;
+	agama: Agama;
+	ibuKandung: string;
+	pendidikanTerakhir: PendidikanTerakhir;
+	golonganDarah: string;
+	statusKawin: StatusKawin;
+	fotoProfil: string;
+	notes: string;
+	kartuIdentitas: KartuIdentitas;
+}
 
 export const BiodataSchema = z.object({
 	nik: z.string({ required_error: "NIK harus diisi" }),
@@ -73,7 +67,7 @@ export const biodataTableColumns: CustomColumnDef[] = [
 	},
 	{
 		id: "tempatLahir",
-		label: "Tempat Lahir"
+		label: "Tempat Lahir",
 	},
 	{
 		id: "tanggalLahir",
@@ -110,5 +104,5 @@ export const biodataTableColumns: CustomColumnDef[] = [
 	{
 		id: "notes",
 		label: "Notes",
-	}
+	},
 ];
