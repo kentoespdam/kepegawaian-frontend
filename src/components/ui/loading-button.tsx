@@ -1,10 +1,10 @@
 "use client";
-import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@utils/index";
 import { RefreshCwIcon } from "lucide-react";
+import * as React from "react";
 import { useFormStatus } from "react-dom";
-import { ButtonProps, buttonVariants } from "./button";
+import { type ButtonProps, buttonVariants } from "./button";
 
 interface LoadingButtonProps extends ButtonProps {
 	asChild?: boolean;
