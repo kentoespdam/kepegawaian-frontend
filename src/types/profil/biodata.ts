@@ -13,7 +13,7 @@ export interface BiodataMini {
 
 export interface Biodata extends BiodataMini {
 	tempatLahir: string;
-	tanggalLahir: Date;
+	tanggalLahir: string;
 	alamat: string;
 	telp: string;
 	agama: Agama;
@@ -27,16 +27,18 @@ export interface Biodata extends BiodataMini {
 }
 
 export const BiodataSchema = z.object({
-	nik: z.string({ required_error: "NIK harus diisi" }),
-	nama: z.string({ required_error: "Nama harus diisi" }),
-	jenisKelamin: z.string({ required_error: "Jenis Kelamin harus diisi" }),
-	tempatLahir: z.string({ required_error: "Tempat Lahir harus diisi" }),
-	tanggalLahir: z.date({ required_error: "Tanggal Lahir harus diisi" }),
-	alamat: z.string({ required_error: "Alamat harus diisi" }),
+	nik: z.string({ message: "NIK harus diisi" }),
+	nama: z.string({ message: "Nama harus diisi" }),
+	jenisKelamin: z.string({ message: "Jenis Kelamin harus diisi" }),
+	tempatLahir: z.string({ message: "Tempat Lahir harus diisi" }),
+	tanggalLahir: z.string({ message: "Tanggal Lahir harus diisi" }),
+	alamat: z.string({ message: "Alamat harus diisi" }),
 	telp: z.string().optional(),
 	agama: z.number(),
-	ibuKandung: z.string({ required_error: "Ibu Kandung harus diisi" }),
-	pendidikanTerakhir: z.number().min(1, "Pendidikan Terakhir harus diisi"),
+	ibuKandung: z.string({ message: "Ibu Kandung harus diisi" }),
+	pendidikanTerakhir: z
+		.number()
+		.min(1, { message: "Pendidikan Terakhir harus diisi" }),
 	golonganDarah: z.string().optional(),
 	statusKawin: z.string(),
 	notes: z.string(),

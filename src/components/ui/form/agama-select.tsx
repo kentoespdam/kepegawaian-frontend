@@ -8,9 +8,9 @@ const AgamaSelectComponent = () => {
             <Label htmlFor="agama">
                 Agama
             </Label>
-            <Select>
+            <Select name="agama">
                 <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Pilih Agama" />
+                    <SelectValue id="agama" placeholder="Pilih Agama" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>

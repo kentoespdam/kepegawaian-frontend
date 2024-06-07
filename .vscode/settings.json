@@ -1,11 +1,21 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "javascript.suggest.autoImports": true,
-  "javascript.suggest.includeCompletionsForImportStatements": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.validate.enable": true,
-  "javascript.validate.enable": true,
-  "IDX.aI.enableInlineCompletion": true,
-  "IDX.aI.enableCodebaseIndexing": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"javascript.suggest.autoImports": true,
+	"javascript.suggest.includeCompletionsForImportStatements": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.validate.enable": true,
+	"javascript.validate.enable": true,
+	"IDX.aI.enableInlineCompletion": true,
+	"IDX.aI.enableCodebaseIndexing": true,
+	"[javascript]": {
+		"editor.maxTokenizationLineLength": 2500,
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

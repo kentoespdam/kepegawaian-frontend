@@ -3,7 +3,7 @@ import TopBarComponent from "./topbar";
 import ContentComponent from "./content";
 
 const MainTemplate = ({ children }: ChildrenNode) => (
-    <div className="max-w-screen-xl mx-auto min-h-screen flex flex-col justify-items-start">
+    <div className="grid grid-cols-1 gap-2 mx-auto">
         <TopBarComponent />
         <ContentComponent>{children}</ContentComponent>
         <footer className="fixed bottom-0 w-full text-center">

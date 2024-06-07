@@ -5,16 +5,16 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 const StatusKawinSelectComponent = () => {
     return (
         <>
-            <Label htmlFor="jenisKelamin">
+            <Label htmlFor="statusKawin">
                 Status Perkawinan <span className="text-red-500">*</span>
             </Label>
-            <Select>
+            <Select name="statusKawin" required>
                 <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Pilih Status Perkawinan" />
+                    <SelectValue id="statusKawin" placeholder="Pilih Status Perkawinan" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>
-                        {STATUS_KAWIN.map((item, index) => (
+                        {STATUS_KAWIN.map(item => (
                             <SelectItem key={item} value={item}>{item}</SelectItem>
                         ))}
                     </SelectGroup>
